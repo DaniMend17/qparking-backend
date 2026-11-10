@@ -1,5 +1,6 @@
 package com.github.danimend17.qparking.user.internal;
 
+import com.github.danimend17.qparking.user.CreateUserCommand;
 import com.github.danimend17.qparking.user.IUserService;
 import com.github.danimend17.qparking.user.UserDTO;
 import lombok.RequiredArgsConstructor;

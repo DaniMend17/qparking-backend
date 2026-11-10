@@ -1,8 +1,6 @@
 package com.github.danimend17.qparking.user;
 
 
-import com.github.danimend17.qparking.user.internal.CreateUserCommand;
-
 import java.util.List;
 
 public interface IUserService {

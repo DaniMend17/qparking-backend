@@ -1,8 +1,6 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user;
 
 import com.github.danimend17.qparking.shared.enums.Platform;
-
-import java.time.LocalDateTime;
 
 public record CreateUserCommand(
         String firstName,
