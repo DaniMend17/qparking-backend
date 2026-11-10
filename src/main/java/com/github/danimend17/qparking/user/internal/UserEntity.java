@@ -1,10 +1,12 @@
 package com.github.danimend17.qparking.user.internal;
 
+import com.github.danimend17.qparking.shared.enums.Platform;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -48,18 +50,18 @@ public class UserEntity {
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private LocalDateTime updatedAT;
+    private LocalDateTime updatedAt;
 
     @PrePersist
     public void prePersist() {
-        credit = BigDecimal.ZERO;
+        if (Objects.isNull(credit)) credit = BigDecimal.ZERO;
         createdAt = LocalDateTime.now();
-        updatedAT = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     public void preUpdate() {
-        updatedAT = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
 }
