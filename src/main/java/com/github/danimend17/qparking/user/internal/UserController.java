@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "user")
@@ -39,9 +40,9 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping(path = "{phoneNumber}")
-    public ResponseEntity<?> checkPhoneNumberAvailability(@PathVariable String phoneNumber) {
-        boolean phoneNumberAvailable = userService.isPhoneNumberAlreadyRegister(phoneNumber);
+    @GetMapping(path = "phone-number/{userPhoneNumber}")
+    public ResponseEntity<Map<String, Boolean>> checkPhoneNumberAvailability(@PathVariable String userPhoneNumber) {
+        boolean phoneNumberAvailable = userService.isPhoneNumberAlreadyRegister(userPhoneNumber);
         return ResponseEntity.ok(Collections.singletonMap("alreadyRegister", phoneNumberAvailable));
     }
 
