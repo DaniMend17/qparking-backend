@@ -1,30 +1,37 @@
 package com.github.danimend17.qparking.user.internal;
 
 import com.github.danimend17.qparking.user.IUserService;
+import com.github.danimend17.qparking.user.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
+    private final UserMapper mapper;
 
     @Override
-    public UserEntity createUser(UserEntity user) {
-        return null;
+    public UserDTO createUser(CreateUserCommand createUserCommand) {
+        final UserEntity userEntity = mapper.commandToEntity(createUserCommand);
+        final UserEntity savedUser = userRepository.save(userEntity);
+        return mapper.entityToDTO(savedUser);
     }
 
     @Override
-    public Optional<UserEntity> getUserById(Long userId) {
-        return Optional.empty();
+    public UserDTO getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .map(mapper::entityToDTO)
+                .orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     @Override
-    public List<UserEntity> getUsers() {
-        return List.of();
+    public List<UserDTO> getUsers() {
+        return userRepository.findAll().stream()
+                .map(mapper::entityToDTO)
+                .toList();
     }
 }
