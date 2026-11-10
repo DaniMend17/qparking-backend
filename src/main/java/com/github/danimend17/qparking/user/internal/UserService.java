@@ -4,6 +4,7 @@ import com.github.danimend17.qparking.user.IUserService;
 import com.github.danimend17.qparking.user.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class UserService implements IUserService {
     private final UserMapper mapper;
 
     @Override
+    @Transactional
     public UserDTO createUser(CreateUserCommand createUserCommand) {
         final UserEntity userEntity = mapper.commandToEntity(createUserCommand);
         final UserEntity savedUser = userRepository.save(userEntity);
@@ -33,5 +35,10 @@ public class UserService implements IUserService {
         return userRepository.findAll().stream()
                 .map(mapper::entityToDTO)
                 .toList();
+    }
+
+    @Override
+    public boolean isPhoneNumberAlreadyRegister(String phoneNumber) {
+        return userRepository.existsByPhoneNumber(phoneNumber);
     }
 }
