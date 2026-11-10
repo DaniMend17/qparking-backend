@@ -1,6 +1,6 @@
 package com.github.danimend17.qparking.shared.exception;
 
-import com.github.danimend17.qparking.user.internal.UserNotFoundException;
+import com.github.danimend17.qparking.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -5,7 +5,7 @@ import com.github.danimend17.qparking.user.UserDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+interface UserMapper {
 
     UserDTO entityToDTO(UserEntity userEntity);
 

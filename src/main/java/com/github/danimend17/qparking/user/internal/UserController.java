@@ -15,7 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "user")
 @RequiredArgsConstructor
-public class UserController {
+class UserController {
 
     private final IUserService userService;
     private final UserMapper mapper;

@@ -3,6 +3,7 @@ package com.github.danimend17.qparking.user.internal;
 import com.github.danimend17.qparking.user.CreateUserCommand;
 import com.github.danimend17.qparking.user.IUserService;
 import com.github.danimend17.qparking.user.UserDTO;
+import com.github.danimend17.qparking.user.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements IUserService {
+class UserService implements IUserService {
 
     private final UserRepository userRepository;
     private final UserMapper mapper;

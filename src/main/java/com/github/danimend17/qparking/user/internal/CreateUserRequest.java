@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record CreateUserRequest(
+record CreateUserRequest(
         @NotBlank(message = "First name value is mandatory")
         String firstName,
         @NotBlank(message = "Last name value is mandatory")
