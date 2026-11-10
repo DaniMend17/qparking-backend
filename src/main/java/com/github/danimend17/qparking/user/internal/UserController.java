@@ -1,13 +1,13 @@
 package com.github.danimend17.qparking.user.internal;
 
 import com.github.danimend17.qparking.user.IUserService;
-import com.github.danimend17.qparking.user.UserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -37,6 +37,12 @@ public class UserController {
                 .map(mapper::dtoToResponse)
                 .toList();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping(path = "{phoneNumber}")
+    public ResponseEntity<?> checkPhoneNumberAvailability(@PathVariable String phoneNumber) {
+        boolean phoneNumberAvailable = userService.isPhoneNumberAlreadyRegister(phoneNumber);
+        return ResponseEntity.ok(Collections.singletonMap("alreadyRegister", phoneNumberAvailable));
     }
 
 }
