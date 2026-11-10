@@ -3,4 +3,7 @@ package com.github.danimend17.qparking.user.internal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
+
+    boolean existsByPhoneNumber(String phoneNumber);
+
 }
