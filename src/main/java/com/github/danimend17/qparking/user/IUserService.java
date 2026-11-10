@@ -1,17 +1,16 @@
 package com.github.danimend17.qparking.user;
 
 
-import com.github.danimend17.qparking.user.internal.UserEntity;
+import com.github.danimend17.qparking.user.internal.CreateUserCommand;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IUserService {
 
-    UserEntity createUser(UserEntity user);
+    UserDTO createUser(CreateUserCommand createUserCommand);
 
-    Optional<UserEntity> getUserById(Long userId);
+    UserDTO getUserById(Long userId);
 
-    List<UserEntity> getUsers();
+    List<UserDTO> getUsers();
 
 }
