@@ -13,4 +13,6 @@ public interface IUserService {
 
     List<UserDTO> getUsers();
 
+    boolean isPhoneNumberAlreadyRegister(String phoneNumber);
+
 }
