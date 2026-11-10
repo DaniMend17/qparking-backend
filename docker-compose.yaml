@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:18
+    container_name: qparking_db
+    volumes:
+      - ./db/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: daniel
+      POSTGRES_PASSWORD: 170703
+      POSTGRES_DB: qparking_db
+
+
