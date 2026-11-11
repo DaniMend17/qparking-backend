@@ -1,9 +1,6 @@
 package com.github.danimend17.qparking.user.internal;
 
-import com.github.danimend17.qparking.user.CreateUserCommand;
-import com.github.danimend17.qparking.user.IUserService;
-import com.github.danimend17.qparking.user.UserDTO;
-import com.github.danimend17.qparking.user.UserNotFoundException;
+import com.github.danimend17.qparking.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +17,9 @@ class UserService implements IUserService {
     @Override
     @Transactional
     public UserDTO createUser(CreateUserCommand createUserCommand) {
+        if (isPhoneNumberAlreadyRegister(createUserCommand.phoneNumber())) {
+            throw new DuplicatedPhoneNumberException(createUserCommand.phoneNumber());
+        }
         final UserEntity userEntity = mapper.commandToEntity(createUserCommand);
         final UserEntity savedUser = userRepository.save(userEntity);
         return mapper.entityToDTO(savedUser);
