@@ -12,9 +12,8 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @ToString
-class ParkingScheduleEntity {
+public class ParkingScheduleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
