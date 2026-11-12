@@ -15,9 +15,8 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @ToString
-class ParkingEntity {
+public class ParkingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +32,8 @@ class ParkingEntity {
     @Column(nullable = false)
     private CommissionRate commissionRate;
 
-    @Column(nullable = false)
     private BigDecimal hourlyRate;
 
-    @Column(nullable = false)
     private BigDecimal flatRate;
 
     @Column(nullable = false)
@@ -65,7 +62,21 @@ class ParkingEntity {
         if (Objects.isNull(updatedAt)) updatedAt = LocalDateTime.now();
     }
 
-    public void addParkingSchedule(ParkingScheduleEntity parkingSchedule) {
+    public void updateDetails(ParkingEntity parking) {
+        if (Objects.isNull(parking)) return;
+        this.setParkingName(parking.getParkingName());
+        this.setCommissionRate(parking.getCommissionRate());
+        this.setHourlyRate(parking.getHourlyRate());
+        this.setFlatRate(parking.getFlatRate());
+        this.setLatitude(parking.getLatitude());
+        this.setLongitude(parking.getLongitude());
+
+        if (Objects.isNull(parking.getParkingSchedules())) return;
+        parking.getParkingSchedules().forEach(this::addOrUpdateParkingSchedule);
+    }
+
+
+    public void addOrUpdateParkingSchedule(ParkingScheduleEntity parkingSchedule) {
         if (Objects.isNull(parkingSchedule)) return;
         Optional<ParkingScheduleEntity> optionalParkingSchedule =
                 findParkingScheduleDay(parkingSchedule.getWeekday());
@@ -77,13 +88,13 @@ class ParkingEntity {
         updateParkingScheduleDay(oldParkingSchedule, parkingSchedule);
     }
 
-    public void addNewParkingScheduleDay(ParkingScheduleEntity parkingSchedule) {
+    private void addNewParkingScheduleDay(ParkingScheduleEntity parkingSchedule) {
         if (Objects.isNull(parkingSchedule)) return;
         parkingSchedules.add(parkingSchedule);
         parkingSchedule.setParking(this);
     }
 
-    public Optional<ParkingScheduleEntity> findParkingScheduleDay(OperationDay weekday) {
+    private Optional<ParkingScheduleEntity> findParkingScheduleDay(OperationDay weekday) {
         for (ParkingScheduleEntity parkingSchedule : parkingSchedules) {
             if (parkingSchedule.getWeekday() == weekday) {
                 return Optional.of(parkingSchedule);
@@ -92,8 +103,8 @@ class ParkingEntity {
         return Optional.empty();
     }
 
-    public void updateParkingScheduleDay(ParkingScheduleEntity oldParkingSchedule,
-                                         ParkingScheduleEntity newParkingSchedule) {
+    private void updateParkingScheduleDay(ParkingScheduleEntity oldParkingSchedule,
+                                          ParkingScheduleEntity newParkingSchedule) {
         if (Objects.isNull(newParkingSchedule)) return;
         oldParkingSchedule.setIsOpen(newParkingSchedule.getIsOpen());
         oldParkingSchedule.setOpeningTime(newParkingSchedule.getOpeningTime());
