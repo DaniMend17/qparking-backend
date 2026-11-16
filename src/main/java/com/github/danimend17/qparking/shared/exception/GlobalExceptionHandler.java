@@ -1,5 +1,7 @@
 package com.github.danimend17.qparking.shared.exception;
 
+import com.github.danimend17.qparking.parking.DuplicatedParkingNameException;
+import com.github.danimend17.qparking.parking.ParkingLimitExceededException;
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
 import com.github.danimend17.qparking.user.DuplicatedPhoneNumberException;
 import com.github.danimend17.qparking.user.UserNotFoundException;
@@ -53,6 +55,21 @@ public class GlobalExceptionHandler {
     public ProblemDetail illegalStateHandler(IllegalStateException e) {
         final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
         problemDetail.setTitle("Illegal state error");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(DuplicatedParkingNameException.class)
+    public ProblemDetail duplicatedParkingNameHandler(DuplicatedParkingNameException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        problemDetail.setTitle("Duplicated parking name error");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(ParkingLimitExceededException.class)
+    public ProblemDetail parkingLimitExceededHandler(ParkingLimitExceededException e) {
+        final ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.UNPROCESSABLE_CONTENT, e.getMessage());
+        problemDetail.setTitle("Parking limit exceeded error");
         return problemDetail;
     }
 
