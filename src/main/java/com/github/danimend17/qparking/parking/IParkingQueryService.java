@@ -7,4 +7,6 @@ public interface IParkingQueryService {
     Page<ParkingDTO> getParkings(int pageNumber);
 
     ParkingDTO getParkingById(Long parkingId);
+
+    boolean userHasAlreadyRegisterAParking(Long userId);
 }
