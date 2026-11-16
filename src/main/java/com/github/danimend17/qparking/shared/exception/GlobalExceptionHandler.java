@@ -1,5 +1,6 @@
 package com.github.danimend17.qparking.shared.exception;
 
+import com.github.danimend17.qparking.parking.ParkingNotFoundException;
 import com.github.danimend17.qparking.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -17,6 +18,14 @@ public class GlobalExceptionHandler {
         final ProblemDetail problemDetail = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("User not founded");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(ParkingNotFoundException.class)
+    public ProblemDetail parkingNotFoundHandler(ParkingNotFoundException e) {
+        final ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setTitle("Parking not founded");
         return problemDetail;
     }
 
