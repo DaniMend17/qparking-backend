@@ -1,7 +1,7 @@
 package com.github.danimend17.qparking.user.internal;
 
 import com.github.danimend17.qparking.user.CreateUserCommand;
-import com.github.danimend17.qparking.user.IUserService;
+import com.github.danimend17.qparking.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 class UserController {
 
-    private final IUserService userService;
+    private final UserService userService;
     private final UserMapper mapper;
 
     @PostMapping
