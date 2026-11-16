@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-class UserService implements IUserService {
+class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper mapper;
@@ -20,8 +20,8 @@ class UserService implements IUserService {
         if (isPhoneNumberAlreadyRegister(createUserCommand.phoneNumber())) {
             throw new DuplicatedPhoneNumberException(createUserCommand.phoneNumber());
         }
-        final UserEntity userEntity = mapper.commandToEntity(createUserCommand);
-        final UserEntity savedUser = userRepository.save(userEntity);
+        final User user = mapper.commandToEntity(createUserCommand);
+        final User savedUser = userRepository.save(user);
         return mapper.entityToDTO(savedUser);
     }
 
@@ -43,4 +43,11 @@ class UserService implements IUserService {
     public boolean isPhoneNumberAlreadyRegister(String phoneNumber) {
         return userRepository.existsByPhoneNumber(phoneNumber);
     }
+
+    @Override
+    public boolean userExistsById(Long userId) {
+        return userRepository.existsById(userId);
+    }
+
+
 }

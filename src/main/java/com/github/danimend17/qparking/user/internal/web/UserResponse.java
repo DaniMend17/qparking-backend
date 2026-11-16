@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.web;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.danimend17.qparking.shared.enums.Platform;
@@ -6,7 +6,7 @@ import com.github.danimend17.qparking.shared.enums.Platform;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-record UserResponse(
+public record UserResponse(
         Long userId,
         String firstName,
         String lastName,
