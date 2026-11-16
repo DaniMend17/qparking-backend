@@ -1,7 +1,8 @@
-package com.github.danimend17.qparking.parking.internal;
+package com.github.danimend17.qparking.parking.internal.web;
 
-import com.github.danimend17.qparking.parking.IParkingQueryService;
+import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parking.ParkingDTO;
+import com.github.danimend17.qparking.parking.internal.application.ParkingCommandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ParkingController {
 
-    private final IParkingCommandService parkingCommandService;
-    private final IParkingQueryService parkingQueryService;
+    private final ParkingCommandService parkingCommandService;
+    private final ParkingQueryService parkingQueryService;
 
     @PostMapping
     public ResponseEntity<ParkingDTO> createParking(@RequestBody @Valid ParkingRequest request) {

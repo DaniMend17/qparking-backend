@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.parking.internal;
+package com.github.danimend17.qparking.parking.internal.web;
 
 import com.github.danimend17.qparking.shared.enums.CommissionRate;
 import jakarta.validation.Valid;
