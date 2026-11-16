@@ -10,4 +10,8 @@ interface ParkingRepository extends JpaRepository<ParkingEntity, Long> {
     @Query("FROM ParkingEntity p JOIN FETCH p.parkingSchedules WHERE p.parkingId = :parkingId")
     Optional<ParkingEntity> findParkingWithScheduleById(Long parkingId);
 
+    boolean existsByUserId(Long userId);
+
+    boolean existsByParkingName(String parkingName);
+
 }
