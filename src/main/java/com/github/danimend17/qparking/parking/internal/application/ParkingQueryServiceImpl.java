@@ -1,9 +1,10 @@
-package com.github.danimend17.qparking.parking.internal;
+package com.github.danimend17.qparking.parking.internal.application;
 
-import com.github.danimend17.qparking.parking.IParkingQueryService;
+import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parking.ParkingDTO;
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
-import com.github.danimend17.qparking.parking.internal.mapper.ParkingMapper;
+import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
+import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class ParkingQueryService implements IParkingQueryService {
+public class ParkingQueryServiceImpl implements ParkingQueryService {
 
     private final ParkingRepository parkingRepository;
     private final ParkingMapper mapper;

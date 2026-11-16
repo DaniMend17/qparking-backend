@@ -1,9 +1,16 @@
-package com.github.danimend17.qparking.parking.internal;
+package com.github.danimend17.qparking.parking.internal.application;
 
-import com.github.danimend17.qparking.parking.*;
-import com.github.danimend17.qparking.parking.internal.mapper.ParkingMapper;
-import com.github.danimend17.qparking.parking.internal.mapper.ParkingScheduleMapper;
-import com.github.danimend17.qparking.parking.internal.validator.CommissionRateValidator;
+import com.github.danimend17.qparking.parking.ParkingDTO;
+import com.github.danimend17.qparking.parking.DuplicatedParkingNameException;
+import com.github.danimend17.qparking.parking.ParkingLimitExceededException;
+import com.github.danimend17.qparking.parking.ParkingNotFoundException;
+import com.github.danimend17.qparking.parking.internal.domain.Parking;
+import com.github.danimend17.qparking.parking.internal.domain.ParkingSchedule;
+import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
+import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
+import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingScheduleMapper;
+import com.github.danimend17.qparking.parking.internal.domain.commission.CommissionRateValidator;
+import com.github.danimend17.qparking.parking.internal.web.ParkingRequest;
 import com.github.danimend17.qparking.user.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +21,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ParkingCommandService implements IParkingCommandService {
+public class ParkingCommandServiceImpl implements ParkingCommandService {
 
     private final ParkingRepository parkingRepository;
     private final IUserService userService;
@@ -32,17 +39,17 @@ public class ParkingCommandService implements IParkingCommandService {
         if (parkingRepository.existsByUserId(request.userId()))
             throw new ParkingLimitExceededException(request.userId());
 
-        final ParkingEntity parkingEntity = parkingMapper.fromRequestToEntity(request);
+        final Parking parking = parkingMapper.fromRequestToEntity(request);
 
         commissionRateValidators.forEach(commissionRateValidator ->
-                commissionRateValidator.validate(parkingEntity));
+                commissionRateValidator.validate(parking));
 
-        final List<ParkingScheduleEntity> parkingSchedule = request.parkingSchedule().stream()
+        final List<ParkingSchedule> parkingSchedule = request.parkingSchedule().stream()
                 .map(parkingScheduleMapper::fromRequestToEntity)
                 .toList();
-        parkingSchedule.forEach(parkingEntity::addOrUpdateParkingSchedule);
+        parkingSchedule.forEach(parking::addOrUpdateParkingSchedule);
 
-        final ParkingEntity savedParking = parkingRepository.save(parkingEntity);
+        final Parking savedParking = parkingRepository.save(parking);
 
         return parkingMapper.fromEntityToDto(savedParking);
     }
@@ -52,21 +59,21 @@ public class ParkingCommandService implements IParkingCommandService {
         if (parkingRepository.existsByParkingName(request.parkingName()))
             throw new DuplicatedParkingNameException(request.parkingName());
 
-        final ParkingEntity toUpdateParkingEntity = parkingRepository.findParkingWithScheduleById(parkingId)
+        final Parking toUpdateParking = parkingRepository.findParkingWithScheduleById(parkingId)
                 .orElseThrow(() -> new ParkingNotFoundException(parkingId));
 
-        final ParkingEntity parkingEntity = parkingMapper.fromRequestToEntity(request);
+        final Parking parking = parkingMapper.fromRequestToEntity(request);
         commissionRateValidators.forEach(commissionRateValidator ->
-                commissionRateValidator.validate(parkingEntity));
+                commissionRateValidator.validate(parking));
 
-        final List<ParkingScheduleEntity> parkingSchedule = request.parkingSchedule().stream()
+        final List<ParkingSchedule> parkingSchedule = request.parkingSchedule().stream()
                 .map(parkingScheduleMapper::fromRequestToEntity)
                 .toList();
-        parkingSchedule.forEach(parkingEntity::addOrUpdateParkingSchedule);
+        parkingSchedule.forEach(parking::addOrUpdateParkingSchedule);
 
-        toUpdateParkingEntity.updateDetails(parkingEntity);
+        toUpdateParking.updateDetails(parking);
 
-        return parkingMapper.fromEntityToDto(parkingRepository.save(toUpdateParkingEntity));
+        return parkingMapper.fromEntityToDto(parkingRepository.save(toUpdateParking));
     }
 
     @Override
