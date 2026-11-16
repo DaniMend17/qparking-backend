@@ -11,7 +11,8 @@ import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingScheduleMapper;
 import com.github.danimend17.qparking.parking.internal.domain.commission.CommissionRateValidator;
 import com.github.danimend17.qparking.parking.internal.web.ParkingRequest;
-import com.github.danimend17.qparking.user.IUserService;
+import com.github.danimend17.qparking.user.UserNotFoundException;
+import com.github.danimend17.qparking.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,14 +25,14 @@ import java.util.List;
 public class ParkingCommandServiceImpl implements ParkingCommandService {
 
     private final ParkingRepository parkingRepository;
-    private final IUserService userService;
+    private final UserService userService;
     private final ParkingMapper parkingMapper;
     private final ParkingScheduleMapper parkingScheduleMapper;
     private final List<CommissionRateValidator> commissionRateValidators;
 
     @Override
     public ParkingDTO createParking(ParkingRequest request) {
-        userService.getUserById(request.userId());
+        if (!userService.userExistsById(request.userId())) throw new UserNotFoundException(request.userId());
 
         if (parkingRepository.existsByParkingName(request.parkingName()))
             throw new DuplicatedParkingNameException(request.parkingName());
