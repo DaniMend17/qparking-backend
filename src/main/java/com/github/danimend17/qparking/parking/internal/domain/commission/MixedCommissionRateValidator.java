@@ -12,7 +12,7 @@ class MixedCommissionRateValidator implements CommissionRateValidator {
     public void validate(Parking parking) {
         if (parking.getCommissionRate() == CommissionRate.MIXED &&
                 (Objects.isNull(parking.getHourlyRate()) || Objects.isNull(parking.getFlatRate()))) {
-            throw new IllegalStateException(
+            throw new InvalidCommissionRateStateException(
                     "Mixed commission rate type must have an hourly and flat rate value assigned"
             );
         }

@@ -13,7 +13,7 @@ class HourlyCommissionRateValidator implements CommissionRateValidator {
     public void validate(Parking parking) {
         if (parking.getCommissionRate() == CommissionRate.HOURLY &&
                 (Objects.isNull(parking.getHourlyRate()) || Objects.nonNull(parking.getFlatRate()))) {
-            throw new IllegalStateException(
+            throw new InvalidCommissionRateStateException(
                     "Hourly commission rate type must have only a hourly rate value assigned"
             );
         }

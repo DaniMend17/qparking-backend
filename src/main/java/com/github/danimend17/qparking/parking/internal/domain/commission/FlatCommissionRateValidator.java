@@ -12,7 +12,7 @@ class FlatCommissionRateValidator implements CommissionRateValidator {
     public void validate(Parking parking) {
         if (parking.getCommissionRate() == CommissionRate.FLAT &&
                 (Objects.isNull(parking.getFlatRate()) || Objects.nonNull(parking.getHourlyRate()))) {
-            throw new IllegalStateException(
+            throw new InvalidCommissionRateStateException(
                     "Flat commission rate type must have only a flat rate value assigned"
             );
         }
