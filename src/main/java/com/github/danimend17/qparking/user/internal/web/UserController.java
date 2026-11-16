@@ -1,7 +1,8 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.web;
 
 import com.github.danimend17.qparking.user.CreateUserCommand;
-import com.github.danimend17.qparking.user.IUserService;
+import com.github.danimend17.qparking.user.UserService;
+import com.github.danimend17.qparking.user.internal.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,9 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "user")
 @RequiredArgsConstructor
-class UserController {
+public class UserController {
 
-    private final IUserService userService;
+    private final UserService userService;
     private final UserMapper mapper;
 
     @PostMapping
