@@ -1,8 +1,8 @@
-package com.github.danimend17.qparking.parking.internal.mapper;
+package com.github.danimend17.qparking.parking.internal.web.mapper;
 
 import com.github.danimend17.qparking.parking.ParkingDTO;
-import com.github.danimend17.qparking.parking.internal.ParkingEntity;
-import com.github.danimend17.qparking.parking.internal.ParkingRequest;
+import com.github.danimend17.qparking.parking.internal.domain.Parking;
+import com.github.danimend17.qparking.parking.internal.web.ParkingRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,8 +13,8 @@ public interface ParkingMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "parkingSchedules", ignore = true)
-    ParkingEntity fromRequestToEntity(ParkingRequest request);
+    Parking fromRequestToEntity(ParkingRequest request);
 
-    ParkingDTO fromEntityToDto(ParkingEntity entity);
+    ParkingDTO fromEntityToDto(Parking entity);
 
 }
