@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.parking;
+package com.github.danimend17.qparking.parking.internal.domain;
 
 public class DuplicatedParkingNameException extends RuntimeException {
     public DuplicatedParkingNameException(String parkingName) {
