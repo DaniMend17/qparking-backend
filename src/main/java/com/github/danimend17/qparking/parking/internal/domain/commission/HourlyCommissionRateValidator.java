@@ -1,7 +1,7 @@
-package com.github.danimend17.qparking.parking.internal.validator;
+package com.github.danimend17.qparking.parking.internal.domain.commission;
 
 
-import com.github.danimend17.qparking.parking.internal.ParkingEntity;
+import com.github.danimend17.qparking.parking.internal.domain.Parking;
 import com.github.danimend17.qparking.shared.enums.CommissionRate;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import java.util.Objects;
 @Component
 class HourlyCommissionRateValidator implements CommissionRateValidator {
     @Override
-    public void validate(ParkingEntity parking) {
+    public void validate(Parking parking) {
         if (parking.getCommissionRate() == CommissionRate.HOURLY &&
                 (Objects.isNull(parking.getHourlyRate()) || Objects.nonNull(parking.getFlatRate()))) {
             throw new IllegalStateException(
