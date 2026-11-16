@@ -1,8 +1,8 @@
 package com.github.danimend17.qparking.parking.internal.application;
 
 import com.github.danimend17.qparking.parking.ParkingDTO;
-import com.github.danimend17.qparking.parking.DuplicatedParkingNameException;
-import com.github.danimend17.qparking.parking.ParkingLimitExceededException;
+import com.github.danimend17.qparking.parking.internal.domain.DuplicatedParkingNameException;
+import com.github.danimend17.qparking.parking.internal.domain.ParkingLimitExceededException;
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
 import com.github.danimend17.qparking.parking.internal.domain.Parking;
 import com.github.danimend17.qparking.parking.internal.domain.ParkingSchedule;
