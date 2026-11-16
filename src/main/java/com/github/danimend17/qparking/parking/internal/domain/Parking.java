@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.parking.internal;
+package com.github.danimend17.qparking.parking.internal.domain;
 
 import com.github.danimend17.qparking.shared.enums.CommissionRate;
 import com.github.danimend17.qparking.shared.enums.OperationDay;
@@ -16,7 +16,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ParkingEntity {
+public class Parking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +49,7 @@ public class ParkingEntity {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL)
-    private List<ParkingScheduleEntity> parkingSchedules = new ArrayList<>();
+    private List<ParkingSchedule> parkingSchedules = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
@@ -62,7 +62,7 @@ public class ParkingEntity {
         if (Objects.isNull(updatedAt)) updatedAt = LocalDateTime.now();
     }
 
-    public void updateDetails(ParkingEntity parking) {
+    public void updateDetails(Parking parking) {
         if (Objects.isNull(parking)) return;
         this.setParkingName(parking.getParkingName());
         this.setCommissionRate(parking.getCommissionRate());
@@ -76,26 +76,26 @@ public class ParkingEntity {
     }
 
 
-    public void addOrUpdateParkingSchedule(ParkingScheduleEntity parkingSchedule) {
+    public void addOrUpdateParkingSchedule(ParkingSchedule parkingSchedule) {
         if (Objects.isNull(parkingSchedule)) return;
-        Optional<ParkingScheduleEntity> optionalParkingSchedule =
+        Optional<ParkingSchedule> optionalParkingSchedule =
                 findParkingScheduleDay(parkingSchedule.getWeekday());
         if (optionalParkingSchedule.isEmpty()) {
             addNewParkingScheduleDay(parkingSchedule);
             return;
         }
-        final ParkingScheduleEntity oldParkingSchedule = optionalParkingSchedule.get();
+        final ParkingSchedule oldParkingSchedule = optionalParkingSchedule.get();
         updateParkingScheduleDay(oldParkingSchedule, parkingSchedule);
     }
 
-    private void addNewParkingScheduleDay(ParkingScheduleEntity parkingSchedule) {
+    private void addNewParkingScheduleDay(ParkingSchedule parkingSchedule) {
         if (Objects.isNull(parkingSchedule)) return;
         parkingSchedules.add(parkingSchedule);
         parkingSchedule.setParking(this);
     }
 
-    private Optional<ParkingScheduleEntity> findParkingScheduleDay(OperationDay weekday) {
-        for (ParkingScheduleEntity parkingSchedule : parkingSchedules) {
+    private Optional<ParkingSchedule> findParkingScheduleDay(OperationDay weekday) {
+        for (ParkingSchedule parkingSchedule : parkingSchedules) {
             if (parkingSchedule.getWeekday() == weekday) {
                 return Optional.of(parkingSchedule);
             }
@@ -103,8 +103,8 @@ public class ParkingEntity {
         return Optional.empty();
     }
 
-    private void updateParkingScheduleDay(ParkingScheduleEntity oldParkingSchedule,
-                                          ParkingScheduleEntity newParkingSchedule) {
+    private void updateParkingScheduleDay(ParkingSchedule oldParkingSchedule,
+                                          ParkingSchedule newParkingSchedule) {
         if (Objects.isNull(newParkingSchedule)) return;
         oldParkingSchedule.setIsOpen(newParkingSchedule.getIsOpen());
         oldParkingSchedule.setOpeningTime(newParkingSchedule.getOpeningTime());

@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.parking.internal;
+package com.github.danimend17.qparking.parking.internal.domain;
 
 import com.github.danimend17.qparking.shared.enums.OperationDay;
 import jakarta.persistence.*;
@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ParkingScheduleEntity {
+public class ParkingSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,6 @@ public class ParkingScheduleEntity {
     @ManyToOne
     @JoinColumn(name = "parking_id")
     @ToString.Exclude
-    private ParkingEntity parking;
+    private Parking parking;
 
 }
