@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalTime;
 
+@DifferentOpeningAndClosingTime
 public record ParkingScheduleRequest(
         @NotNull(message = "Weekday value is mandatory")
         OperationDay weekday,
