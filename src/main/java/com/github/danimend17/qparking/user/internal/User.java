@@ -17,7 +17,7 @@ import java.util.Objects;
 @ToString
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-class UserEntity {
+class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
