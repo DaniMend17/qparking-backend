@@ -8,6 +8,7 @@ import java.util.List;
 
 public record ParkingDTO(
         Long parkingId,
+        Long userId,
         String parkingName,
         CommissionRate commissionRate,
         BigDecimal hourlyRate,
