@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.web;
 
 import com.github.danimend17.qparking.shared.enums.Platform;
 import jakarta.validation.constraints.Email;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-record CreateUserRequest(
+public record CreateUserRequest(
         @NotBlank(message = "First name value is mandatory")
         String firstName,
         @NotBlank(message = "Last name value is mandatory")

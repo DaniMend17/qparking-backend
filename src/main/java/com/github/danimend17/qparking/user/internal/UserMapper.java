@@ -2,10 +2,12 @@ package com.github.danimend17.qparking.user.internal;
 
 import com.github.danimend17.qparking.user.CreateUserCommand;
 import com.github.danimend17.qparking.user.UserDTO;
+import com.github.danimend17.qparking.user.internal.web.CreateUserRequest;
+import com.github.danimend17.qparking.user.internal.web.UserResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-interface UserMapper {
+public interface UserMapper {
 
     UserDTO entityToDTO(User user);
 
