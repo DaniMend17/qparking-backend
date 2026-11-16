@@ -32,12 +32,4 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
-    @ExceptionHandler(Exception.class)
-    public ProblemDetail generalHandler(Exception e) {
-        final ProblemDetail problemDetail =
-                ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
-        problemDetail.setTitle("Internal error");
-        return problemDetail;
-    }
-
 }
