@@ -13,4 +13,6 @@ public interface UserService {
 
     boolean isPhoneNumberAlreadyRegister(String phoneNumber);
 
+    boolean userExistsById(Long userId);
+
 }

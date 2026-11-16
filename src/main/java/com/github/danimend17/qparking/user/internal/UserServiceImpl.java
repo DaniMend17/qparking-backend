@@ -43,4 +43,11 @@ class UserServiceImpl implements UserService {
     public boolean isPhoneNumberAlreadyRegister(String phoneNumber) {
         return userRepository.existsByPhoneNumber(phoneNumber);
     }
+
+    @Override
+    public boolean userExistsById(Long userId) {
+        return userRepository.existsById(userId);
+    }
+
+
 }
