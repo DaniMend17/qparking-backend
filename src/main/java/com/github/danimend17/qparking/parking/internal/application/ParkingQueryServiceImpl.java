@@ -38,4 +38,9 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
     public boolean userHasAlreadyRegisterAParking(Long userId) {
         return parkingRepository.existsByUserId(userId);
     }
+
+    @Override
+    public boolean existsById(Long parkingId) {
+        return parkingRepository.existsById(parkingId);
+    }
 }
