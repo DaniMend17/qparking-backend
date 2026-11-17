@@ -12,4 +12,6 @@ public interface ParkingQueryService {
 
     boolean parkingExistsById(Long parkingId);
 
+    ParkingDTO getParkingByUserId(Long userId);
+
 }

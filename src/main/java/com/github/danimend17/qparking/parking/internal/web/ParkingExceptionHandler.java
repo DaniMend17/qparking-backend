@@ -2,6 +2,7 @@ package com.github.danimend17.qparking.parking.internal.web;
 
 import com.github.danimend17.qparking.parking.internal.domain.DuplicatedParkingNameException;
 import com.github.danimend17.qparking.parking.internal.domain.ParkingLimitExceededException;
+import com.github.danimend17.qparking.parking.internal.domain.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parking.internal.domain.commission.InvalidCommissionRateStateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -30,6 +31,13 @@ public class ParkingExceptionHandler {
     public ProblemDetail invalidCommissionRateStateHandler(InvalidCommissionRateStateException e) {
         final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
         problemDetail.setTitle("Invalid commission rate state error");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(ParkingNotFoundForUserException.class)
+    public ProblemDetail parkingNotFoundForUserHandler(ParkingNotFoundForUserException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setTitle("Parking not found for user error");
         return problemDetail;
     }
 }

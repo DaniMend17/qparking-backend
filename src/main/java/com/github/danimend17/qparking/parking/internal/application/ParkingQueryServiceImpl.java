@@ -3,6 +3,7 @@ package com.github.danimend17.qparking.parking.internal.application;
 import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parking.ParkingDTO;
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
+import com.github.danimend17.qparking.parking.internal.domain.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
 import lombok.RequiredArgsConstructor;
@@ -42,5 +43,12 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
     @Override
     public boolean parkingExistsById(Long parkingId) {
         return parkingRepository.existsById(parkingId);
+    }
+
+    @Override
+    public ParkingDTO getParkingByUserId(Long userId) {
+        return parkingRepository.findByUserId(userId)
+                .map(mapper::fromEntityToDto)
+                .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
     }
 }
