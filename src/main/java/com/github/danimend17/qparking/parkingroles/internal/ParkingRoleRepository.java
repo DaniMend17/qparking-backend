@@ -21,5 +21,5 @@ public interface ParkingRoleRepository extends JpaRepository<ParkingRole, Long> 
             """)
     Page<String> findAllRoleNamesByParkingId(@Param("parkingId") Long parkingId, Pageable pageable);
 
-
+    boolean existsByParkingIdAndParkingRoleId(Long parkingId, Long parkingRoleId);
 }
