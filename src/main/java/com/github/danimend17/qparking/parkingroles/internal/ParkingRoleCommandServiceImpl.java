@@ -19,7 +19,7 @@ public class ParkingRoleCommandServiceImpl implements ParkingRoleCommandService 
 
     @Override
     public ParkingRoleDto createParkingRole(ParkingRoleRequest request) {
-        if (parkingQueryService.parkingExistsById(request.parkingId()))
+        if (!parkingQueryService.parkingExistsById(request.parkingId()))
             throw new ParkingNotFoundException(request.parkingId());
 
         if (parkingRoleRepository.roleNameExistsInParking(request.roleName(), request.parkingId()))
