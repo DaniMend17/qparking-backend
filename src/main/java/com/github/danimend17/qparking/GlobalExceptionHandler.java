@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.shared.exception;
+package com.github.danimend17.qparking;
 
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
 import com.github.danimend17.qparking.user.UserNotFoundException;
