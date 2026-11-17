@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  spring-modulith-architecture-test:
 
     runs-on: ubuntu-latest
 
@@ -20,4 +20,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Execute spring modulith architecture tests
-      run: mvn clean test
+      run: mvn test -Dtest=ModularityTest
