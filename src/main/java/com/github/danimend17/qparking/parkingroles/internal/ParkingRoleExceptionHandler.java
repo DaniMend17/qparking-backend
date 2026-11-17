@@ -15,4 +15,11 @@ public class ParkingRoleExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(InvalidParkingRoleAccessException.class)
+    public ProblemDetail invalidParkingRoleAccessHandler(InvalidParkingRoleAccessException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
+        problemDetail.setTitle("Invalid parking role access error");
+        return problemDetail;
+    }
+
 }
