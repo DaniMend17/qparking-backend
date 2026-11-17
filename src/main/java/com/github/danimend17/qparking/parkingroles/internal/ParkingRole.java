@@ -50,4 +50,11 @@ public class ParkingRole {
         if (Objects.isNull(updatedAt)) updatedAt = LocalDateTime.now();
     }
 
+    public void updateDetails(ParkingRole parkingRole) {
+        this.setRoleName(parkingRole.getRoleName());
+        this.setCommissionPeriod(parkingRole.getCommissionPeriod());
+        this.setCommissionValue(parkingRole.getCommissionValue());
+    }
+
+
 }
