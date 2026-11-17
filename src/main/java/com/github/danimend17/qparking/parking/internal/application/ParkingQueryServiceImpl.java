@@ -40,7 +40,7 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
     }
 
     @Override
-    public boolean existsById(Long parkingId) {
+    public boolean parkingExistsById(Long parkingId) {
         return parkingRepository.existsById(parkingId);
     }
 }
