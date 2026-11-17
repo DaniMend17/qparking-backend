@@ -36,7 +36,8 @@ public class ParkingRoleCommandServiceImpl implements ParkingRoleCommandService 
         final ParkingRole toUpdateParkingRole = parkingRoleRepository.findById(parkingRoleId)
                 .orElseThrow(() -> new ParkingRoleNotFoundException(parkingRoleId));
 
-        if (parkingRoleRepository.roleNameExistsInParking(request.roleName(), request.parkingId()))
+        if (!request.roleName().equals(toUpdateParkingRole.getRoleName()) &&
+                parkingRoleRepository.roleNameExistsInParking(request.roleName(), request.parkingId()))
             throw new DuplicatedParkingRoleNameException(request.roleName());
 
         final ParkingRole sourceParkingRole = mapper.fromRequestToModel(request);
