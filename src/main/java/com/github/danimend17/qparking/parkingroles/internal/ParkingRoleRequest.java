@@ -6,10 +6,6 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 public record ParkingRoleRequest(
-
-        @NotNull(message = "Parking id value is mandatory")
-        Long parkingId,
-
         @NotBlank(message = "Role name value is mandatory")
         @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "Role name contains invalid characters")
         @Size(min = 4, max = 50, message = "Role name length must be between 4 and 50 characters")
