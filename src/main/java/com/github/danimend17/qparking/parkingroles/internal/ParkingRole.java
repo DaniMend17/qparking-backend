@@ -47,7 +47,7 @@ public class ParkingRole {
 
     @PreUpdate
     public void preUpdate() {
-        if (Objects.isNull(updatedAt)) updatedAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     public void updateDetails(ParkingRole parkingRole) {
