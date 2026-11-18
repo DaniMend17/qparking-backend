@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.roles.internal;
+package com.github.danimend17.qparking.roles.internal.infrastructure.persistence;
 
 import com.github.danimend17.qparking.roles.internal.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
