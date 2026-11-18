@@ -1,5 +1,6 @@
 package com.github.danimend17.qparking.roles.internal;
 
+import com.github.danimend17.qparking.roles.internal.domain.DuplicatedRoleNameException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;

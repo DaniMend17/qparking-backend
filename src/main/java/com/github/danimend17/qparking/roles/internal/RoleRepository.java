@@ -1,5 +1,6 @@
 package com.github.danimend17.qparking.roles.internal;
 
+import com.github.danimend17.qparking.roles.internal.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

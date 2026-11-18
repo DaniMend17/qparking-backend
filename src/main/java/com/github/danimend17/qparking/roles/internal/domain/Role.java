@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.roles.internal;
+package com.github.danimend17.qparking.roles.internal.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

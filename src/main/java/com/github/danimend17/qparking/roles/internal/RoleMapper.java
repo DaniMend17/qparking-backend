@@ -1,6 +1,7 @@
 package com.github.danimend17.qparking.roles.internal;
 
 import com.github.danimend17.qparking.roles.RoleDto;
+import com.github.danimend17.qparking.roles.internal.domain.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
