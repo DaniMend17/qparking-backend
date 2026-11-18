@@ -4,7 +4,7 @@ import com.github.danimend17.qparking.roles.RoleDto;
 import com.github.danimend17.qparking.roles.RoleNameNotFoundException;
 import com.github.danimend17.qparking.roles.RoleNotFoundException;
 import com.github.danimend17.qparking.roles.RoleQueryService;
-import com.github.danimend17.qparking.roles.internal.RoleMapper;
+import com.github.danimend17.qparking.roles.internal.web.RoleMapper;
 import com.github.danimend17.qparking.roles.internal.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

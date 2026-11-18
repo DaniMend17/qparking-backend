@@ -2,9 +2,9 @@ package com.github.danimend17.qparking.roles.internal.application;
 
 import com.github.danimend17.qparking.roles.RoleDto;
 import com.github.danimend17.qparking.roles.RoleNotFoundException;
-import com.github.danimend17.qparking.roles.internal.RoleMapper;
+import com.github.danimend17.qparking.roles.internal.web.RoleMapper;
 import com.github.danimend17.qparking.roles.internal.RoleRepository;
-import com.github.danimend17.qparking.roles.internal.RoleRequest;
+import com.github.danimend17.qparking.roles.internal.web.RoleRequest;
 import com.github.danimend17.qparking.roles.internal.domain.DuplicatedRoleNameException;
 import com.github.danimend17.qparking.roles.internal.domain.Role;
 import lombok.RequiredArgsConstructor;

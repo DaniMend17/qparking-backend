@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.roles.internal;
+package com.github.danimend17.qparking.roles.internal.web;
 
 import com.github.danimend17.qparking.roles.RoleDto;
 import com.github.danimend17.qparking.roles.RoleQueryService;
