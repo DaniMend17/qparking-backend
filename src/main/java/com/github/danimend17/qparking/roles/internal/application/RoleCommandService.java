@@ -1,6 +1,7 @@
-package com.github.danimend17.qparking.roles.internal;
+package com.github.danimend17.qparking.roles.internal.application;
 
 import com.github.danimend17.qparking.roles.RoleDto;
+import com.github.danimend17.qparking.roles.internal.RoleRequest;
 
 public interface RoleCommandService {
     RoleDto createRole(RoleRequest roleRequest);

@@ -2,6 +2,7 @@ package com.github.danimend17.qparking.roles.internal;
 
 import com.github.danimend17.qparking.roles.RoleDto;
 import com.github.danimend17.qparking.roles.RoleQueryService;
+import com.github.danimend17.qparking.roles.internal.application.RoleCommandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
