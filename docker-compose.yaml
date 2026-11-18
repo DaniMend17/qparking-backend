@@ -3,7 +3,7 @@ services:
     image: postgres:18
     container_name: qparking_db
     volumes:
-      - qparking_volume:/var/lib/postgresql/data
+      - qparking_volume:/var/lib/postgresql
     ports:
       - "5432:5432"
     environment:
