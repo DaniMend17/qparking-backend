@@ -4,10 +4,10 @@ import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
 
 public interface ParkingRoleCommandService {
 
-    ParkingRoleDto createParkingRole(ParkingRoleRequest request);
+    ParkingRoleDto createParkingRole(Long userId, ParkingRoleRequest request);
 
-    ParkingRoleDto updateParkingRole(Long parkingRoleId, ParkingRoleRequest request);
+    ParkingRoleDto updateParkingRole(Long userId, Long parkingRoleId, ParkingRoleRequest request);
 
-    void deleteParkingRole(Long parkingRoleId);
+    void deleteParkingRole(Long userId, Long parkingRoleId);
 
 }
