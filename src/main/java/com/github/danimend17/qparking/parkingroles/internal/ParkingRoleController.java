@@ -15,23 +15,27 @@ public class ParkingRoleController {
 
     private final ParkingRoleCommandService parkingRoleCommandService;
 
-    @PostMapping
-    public ResponseEntity<ParkingRoleDto> createParkingRole(@Valid @RequestBody ParkingRoleRequest request) {
+    @PostMapping(path = "user/{id}")
+    public ResponseEntity<ParkingRoleDto> createParkingRole(
+            @PathVariable Long id,
+            @Valid @RequestBody ParkingRoleRequest request) {
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(parkingRoleCommandService.createParkingRole(request));
+                .body(parkingRoleCommandService.createParkingRole(id, request));
     }
 
-    @PatchMapping(path = "{id}")
+    @PatchMapping(path = "{roleId}/user/{userId}")
     public ResponseEntity<ParkingRoleDto> updateParkingRole(
-            @PathVariable Long id,
+            @PathVariable Long roleId,
+            @PathVariable Long userId,
             @Valid @RequestBody ParkingRoleRequest request
     ) {
-        return ResponseEntity.ok(parkingRoleCommandService.updateParkingRole(id, request));
+        return ResponseEntity.ok(parkingRoleCommandService.updateParkingRole(userId, roleId, request));
     }
 
-    @DeleteMapping(path = "{id}")
-    public ResponseEntity<?> deleteParkingRole(@PathVariable Long id) {
-        parkingRoleCommandService.deleteParkingRole(id);
+    @DeleteMapping(path = "{roleId}/user/{userId}")
+    public ResponseEntity<?> deleteParkingRole(@PathVariable Long roleId, @PathVariable Long userId) {
+        parkingRoleCommandService.deleteParkingRole(userId, roleId);
         return ResponseEntity.noContent().build();
     }
 
