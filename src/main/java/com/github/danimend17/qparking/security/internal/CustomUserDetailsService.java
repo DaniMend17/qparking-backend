@@ -2,8 +2,9 @@ package com.github.danimend17.qparking.security.internal;
 
 import com.github.danimend17.qparking.role.UserRoleDto;
 import com.github.danimend17.qparking.role.UserRoleQueryService;
+import com.github.danimend17.qparking.user.UserAuthenticationDetails;
+import com.github.danimend17.qparking.user.UserAuthenticationService;
 import com.github.danimend17.qparking.user.UserDto;
-import com.github.danimend17.qparking.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,12 +18,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserService userService;
+    private final UserAuthenticationService userAuthenticationService;
     private final UserRoleQueryService userRoleQueryService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final UserDto user = userService.getUserByEmail(username);
+        final UserAuthenticationDetails user = userAuthenticationService.getUserByEmail(username);
 
         final List<SimpleGrantedAuthority> userRoles = userRoleQueryService.getUserRoles(user.userId())
                 .stream()
@@ -33,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new CustomUserDetails(
                 user.userId(),
                 user.email(),
-                user.firstName(),
+                user.password(),
                 userRoles
         );
     }
