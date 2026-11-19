@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsServiceImpl implements UserDetailsService {
+public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
     private final UserAuthenticationService userAuthenticationService;
     private final UserRoleQueryService userRoleQueryService;
@@ -26,6 +26,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         return buildUserDetails(user);
     }
 
+    @Override
     public UserDetails loadUserById(Long userId) {
         final UserAuthenticationDetails user = userAuthenticationService.getUserById(userId);
         return buildUserDetails(user);
