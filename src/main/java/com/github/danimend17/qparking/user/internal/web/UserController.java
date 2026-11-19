@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @GetMapping(path = "phone-number-availability")
-    public ResponseEntity<Map<String, Boolean>> checkPhoneNumberAvailability(@RequestParam String userPhoneNumber) {
-        boolean available = !userService.isPhoneNumberAlreadyRegister(userPhoneNumber);
+    public ResponseEntity<Map<String, Boolean>> checkPhoneNumberAvailability(@RequestParam String phoneNumber) {
+        boolean available = !userService.isPhoneNumberAlreadyRegister(phoneNumber);
         return ResponseEntity.ok(Collections.singletonMap("available", available));
     }
 
