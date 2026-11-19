@@ -1,9 +1,8 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.web;
 
 import com.github.danimend17.qparking.user.CreateUserCommand;
 import com.github.danimend17.qparking.user.UserDto;
-import com.github.danimend17.qparking.user.internal.web.CreateUserRequest;
-import com.github.danimend17.qparking.user.internal.web.UserResponse;
+import com.github.danimend17.qparking.user.internal.domain.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

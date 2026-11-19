@@ -1,10 +1,11 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.infrastructure.persistence;
 
+import com.github.danimend17.qparking.user.internal.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByPhoneNumber(String phoneNumber);
 

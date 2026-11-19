@@ -1,7 +1,7 @@
 package com.github.danimend17.qparking.user.internal.web;
 
-import com.github.danimend17.qparking.user.internal.DuplicatedEmailException;
-import com.github.danimend17.qparking.user.internal.DuplicatedPhoneNumberException;
+import com.github.danimend17.qparking.user.internal.domain.DuplicatedEmailException;
+import com.github.danimend17.qparking.user.internal.domain.DuplicatedPhoneNumberException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;

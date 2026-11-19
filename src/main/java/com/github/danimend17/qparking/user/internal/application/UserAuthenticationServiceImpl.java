@@ -1,8 +1,9 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.application;
 
 import com.github.danimend17.qparking.user.UserAuthenticationDetails;
 import com.github.danimend17.qparking.user.UserAuthenticationService;
 import com.github.danimend17.qparking.user.UserNotFoundException;
+import com.github.danimend17.qparking.user.internal.infrastructure.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

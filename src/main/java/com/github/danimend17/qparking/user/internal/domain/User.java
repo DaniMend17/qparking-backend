@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.domain;
 
 import com.github.danimend17.qparking.shared.enums.Platform;
 import jakarta.persistence.*;

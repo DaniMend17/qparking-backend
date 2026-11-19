@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.domain;
 
 public class DuplicatedPhoneNumberException extends RuntimeException {
     public DuplicatedPhoneNumberException(String phoneNumber) {
