@@ -17,7 +17,7 @@ public class Role {
     @Column(name = "role_name", length = 10, unique = true, nullable = false)
     private String name;
 
-    @Column(length = 25, nullable = false)
+    @Column(length = 50, nullable = false)
     private String description;
 
     public void updateDetails(Role sourceRole) {
