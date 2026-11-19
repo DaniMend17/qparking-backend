@@ -18,7 +18,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDTO createUser(CreateUserCommand createUserCommand) {
+    public UserDto createUser(CreateUserCommand createUserCommand) {
         if (isPhoneNumberAlreadyRegister(createUserCommand.phoneNumber())) {
             throw new DuplicatedPhoneNumberException(createUserCommand.phoneNumber());
         }
@@ -32,14 +32,14 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserById(Long userId) {
+    public UserDto getUserById(Long userId) {
         return userRepository.findById(userId)
                 .map(mapper::entityToDTO)
                 .orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     @Override
-    public List<UserDTO> getUsers() {
+    public List<UserDto> getUsers() {
         return userRepository.findAll().stream()
                 .map(mapper::entityToDTO)
                 .toList();

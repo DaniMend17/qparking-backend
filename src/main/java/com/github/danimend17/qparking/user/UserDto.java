@@ -5,7 +5,7 @@ import com.github.danimend17.qparking.shared.enums.Platform;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record UserDTO(
+public record UserDto(
         Long userId,
         String firstName,
         String lastName,
