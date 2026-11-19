@@ -2,7 +2,6 @@ package com.github.danimend17.qparking.user.internal.web;
 
 import com.github.danimend17.qparking.user.CreateUserCommand;
 import com.github.danimend17.qparking.user.UserService;
-import com.github.danimend17.qparking.user.internal.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

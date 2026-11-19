@@ -1,6 +1,11 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user.internal.application;
 
 import com.github.danimend17.qparking.user.*;
+import com.github.danimend17.qparking.user.internal.web.UserMapper;
+import com.github.danimend17.qparking.user.internal.infrastructure.persistence.UserRepository;
+import com.github.danimend17.qparking.user.internal.domain.DuplicatedEmailException;
+import com.github.danimend17.qparking.user.internal.domain.DuplicatedPhoneNumberException;
+import com.github.danimend17.qparking.user.internal.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
