@@ -5,11 +5,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -27,7 +25,7 @@ public class JwtServiceImpl implements JwtService {
             @Value("${security.jwt.secret}") String secret,
             @Value("${security.jwt.expiration-ms}") long expirationInMillis
     ) {
-        this.signingKey = setSigningKey(secret);
+        this.signingKey = buildSigningKey(secret);
         this.expirationInMillis = expirationInMillis;
     }
 
@@ -55,30 +53,22 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public Claims extractClaims(String token) {
-        return Jwts.parser()
+    public JwtPayload validateToken(String token) {
+        final Claims claims = Jwts.parser()
                 .verifyWith(signingKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+
+        return new JwtPayload(
+                claims.getSubject(),
+                claims.get("roles", List.class),
+                claims.getIssuedAt(),
+                claims.getExpiration()
+        );
     }
 
-    @Override
-    public String extractSubject(String token) {
-        return extractClaims(token).getSubject();
-    }
-
-    @Override
-    public Date getExpirationDate(String token) {
-        return extractClaims(token).getExpiration();
-    }
-
-    @Override
-    public boolean isTokenExpired(String token) {
-        return extractClaims(token).getExpiration().before(Date.from(Instant.now()));
-    }
-
-    private SecretKey setSigningKey(String secret) {
+    private SecretKey buildSigningKey(String secret) {
         final byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
