@@ -23,4 +23,15 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
                 ))
                 .orElseThrow(() -> new UserNotFoundException(email));
     }
+
+    @Override
+    public UserAuthenticationDetails getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .map(user -> new UserAuthenticationDetails(
+                        user.getUserId(),
+                        user.getEmail(),
+                        user.getPassword()
+                ))
+                .orElseThrow(() -> new UserNotFoundException(userId));
+    }
 }

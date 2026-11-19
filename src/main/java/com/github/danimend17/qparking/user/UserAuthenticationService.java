@@ -4,4 +4,6 @@ public interface UserAuthenticationService {
 
     UserAuthenticationDetails getUserByEmail(String email);
 
+    UserAuthenticationDetails getUserById(Long userId);
+
 }
