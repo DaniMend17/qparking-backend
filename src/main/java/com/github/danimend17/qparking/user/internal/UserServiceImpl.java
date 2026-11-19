@@ -55,5 +55,12 @@ class UserServiceImpl implements UserService {
         return userRepository.existsById(userId);
     }
 
+    @Override
+    public UserDto getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(mapper::entityToDTO)
+                .orElseThrow(() -> new UserNotFoundException(email));
+    }
+
 
 }
