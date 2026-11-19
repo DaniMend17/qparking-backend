@@ -5,13 +5,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
-public record UserPrincipal(
+public record CustomUserDetails(
         Long userId,
         String email,
         String password,
-        List<? extends GrantedAuthority> authorities
+        Collection<? extends GrantedAuthority> authorities
 ) implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
