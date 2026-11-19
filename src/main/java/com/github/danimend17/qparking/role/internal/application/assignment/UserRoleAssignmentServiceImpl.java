@@ -1,9 +1,9 @@
-package com.github.danimend17.qparking.roles.internal.application.assignment;
+package com.github.danimend17.qparking.role.internal.application.assignment;
 
-import com.github.danimend17.qparking.roles.RoleQueryService;
-import com.github.danimend17.qparking.roles.internal.domain.assignment.UserRole;
-import com.github.danimend17.qparking.roles.internal.domain.assignment.UserRoleId;
-import com.github.danimend17.qparking.roles.internal.infrastructure.persistence.UserRoleRepository;
+import com.github.danimend17.qparking.role.RoleQueryService;
+import com.github.danimend17.qparking.role.internal.domain.assignment.UserRole;
+import com.github.danimend17.qparking.role.internal.domain.assignment.UserRoleId;
+import com.github.danimend17.qparking.role.internal.infrastructure.persistence.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

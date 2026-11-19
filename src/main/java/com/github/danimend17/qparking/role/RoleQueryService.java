@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.roles;
+package com.github.danimend17.qparking.role;
 
 import java.util.List;
 

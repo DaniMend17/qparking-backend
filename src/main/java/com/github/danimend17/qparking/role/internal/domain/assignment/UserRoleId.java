@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.roles.internal.domain.assignment;
+package com.github.danimend17.qparking.role.internal.domain.assignment;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

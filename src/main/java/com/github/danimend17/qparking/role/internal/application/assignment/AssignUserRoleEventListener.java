@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.roles.internal.application.assignment;
+package com.github.danimend17.qparking.role.internal.application.assignment;
 
 import com.github.danimend17.qparking.user.CreateUserEvent;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.roles.internal.domain;
+package com.github.danimend17.qparking.role.internal.domain;
 
 public class DuplicatedRoleNameException extends RuntimeException {
     public DuplicatedRoleNameException(String roleName) {

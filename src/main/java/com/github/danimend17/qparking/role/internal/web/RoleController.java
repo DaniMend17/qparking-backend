@@ -1,8 +1,8 @@
-package com.github.danimend17.qparking.roles.internal.web;
+package com.github.danimend17.qparking.role.internal.web;
 
-import com.github.danimend17.qparking.roles.RoleDto;
-import com.github.danimend17.qparking.roles.RoleQueryService;
-import com.github.danimend17.qparking.roles.internal.application.RoleCommandService;
+import com.github.danimend17.qparking.role.RoleDto;
+import com.github.danimend17.qparking.role.RoleQueryService;
+import com.github.danimend17.qparking.role.internal.application.RoleCommandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
