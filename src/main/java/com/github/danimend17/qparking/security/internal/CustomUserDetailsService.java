@@ -4,7 +4,6 @@ import com.github.danimend17.qparking.role.UserRoleDto;
 import com.github.danimend17.qparking.role.UserRoleQueryService;
 import com.github.danimend17.qparking.user.UserAuthenticationDetails;
 import com.github.danimend17.qparking.user.UserAuthenticationService;
-import com.github.danimend17.qparking.user.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
