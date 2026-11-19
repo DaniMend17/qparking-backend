@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     private final UserAuthenticationService userAuthenticationService;
     private final UserRoleQueryService userRoleQueryService;
@@ -23,7 +23,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final UserAuthenticationDetails user = userAuthenticationService.getUserByEmail(username);
+        return buildUserDetails(user);
+    }
 
+    public UserDetails loadUserById(Long userId) {
+        final UserAuthenticationDetails user = userAuthenticationService.getUserById(userId);
+        return buildUserDetails(user);
+    }
+
+    private UserDetails buildUserDetails(UserAuthenticationDetails user) {
         final List<SimpleGrantedAuthority> userRoles = userRoleQueryService.getUserRoles(user.userId())
                 .stream()
                 .map(UserRoleDto::name)
@@ -37,4 +45,5 @@ public class CustomUserDetailsService implements UserDetailsService {
                 userRoles
         );
     }
+
 }
