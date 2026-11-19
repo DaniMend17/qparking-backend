@@ -1,6 +1,8 @@
 package com.github.danimend17.qparking;
 
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
+import com.github.danimend17.qparking.roles.RoleNameNotFoundException;
+import com.github.danimend17.qparking.roles.RoleNotFoundException;
 import com.github.danimend17.qparking.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -26,6 +28,20 @@ public class GlobalExceptionHandler {
         final ProblemDetail problemDetail = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Parking not founded");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ProblemDetail roleNotFoundHandler(RoleNotFoundException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        problemDetail.setTitle("Role not found error");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(RoleNameNotFoundException.class)
+    public ProblemDetail roleNameNotFoundHandler(RoleNameNotFoundException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        problemDetail.setTitle("Role name not found error");
         return problemDetail;
     }
 
