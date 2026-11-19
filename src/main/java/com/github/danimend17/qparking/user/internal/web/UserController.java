@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "user")
+@RequestMapping(path = "users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -42,10 +42,10 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping(path = "phone-number/{userPhoneNumber}")
-    public ResponseEntity<Map<String, Boolean>> checkPhoneNumberAvailability(@PathVariable String userPhoneNumber) {
-        boolean phoneNumberAvailable = userService.isPhoneNumberAlreadyRegister(userPhoneNumber);
-        return ResponseEntity.ok(Collections.singletonMap("alreadyRegister", phoneNumberAvailable));
+    @GetMapping(path = "phone-number-availability")
+    public ResponseEntity<Map<String, Boolean>> checkPhoneNumberAvailability(@RequestParam String phoneNumber) {
+        boolean available = !userService.isPhoneNumberAlreadyRegister(phoneNumber);
+        return ResponseEntity.ok(Collections.singletonMap("available", available));
     }
 
 }

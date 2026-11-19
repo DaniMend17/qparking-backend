@@ -11,6 +11,7 @@ CREATE TABLE users
     created_at   timestamp             NOT NULL,
     updated_at   timestamp             NOT NULL,
     CONSTRAINT users_pk PRIMARY KEY (user_id),
+    CONSTRAINT uniq_users_email UNIQUE (email),
     CONSTRAINT uniq_users_phone_number UNIQUE (phone_number),
     CONSTRAINT chk_users_platform CHECK (platform IN ('WEB', 'MOBILE'))
 );

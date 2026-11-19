@@ -18,10 +18,15 @@ class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDTO createUser(CreateUserCommand createUserCommand) {
+    public UserDto createUser(CreateUserCommand createUserCommand) {
+        if (userRepository.existsByEmail(createUserCommand.email())) {
+            throw new DuplicatedEmailException(createUserCommand.email());
+        }
+
         if (isPhoneNumberAlreadyRegister(createUserCommand.phoneNumber())) {
             throw new DuplicatedPhoneNumberException(createUserCommand.phoneNumber());
         }
+
         final User user = mapper.commandToEntity(createUserCommand);
         final User savedUser = userRepository.save(user);
 
@@ -32,14 +37,14 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserById(Long userId) {
+    public UserDto getUserById(Long userId) {
         return userRepository.findById(userId)
                 .map(mapper::entityToDTO)
                 .orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     @Override
-    public List<UserDTO> getUsers() {
+    public List<UserDto> getUsers() {
         return userRepository.findAll().stream()
                 .map(mapper::entityToDTO)
                 .toList();
@@ -53,6 +58,13 @@ class UserServiceImpl implements UserService {
     @Override
     public boolean userExistsById(Long userId) {
         return userRepository.existsById(userId);
+    }
+
+    @Override
+    public UserDto getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(mapper::entityToDTO)
+                .orElseThrow(() -> new UserNotFoundException(email));
     }
 
 
