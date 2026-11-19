@@ -5,14 +5,16 @@ import java.util.List;
 
 public interface UserService {
 
-    UserDTO createUser(CreateUserCommand createUserCommand);
+    UserDto createUser(CreateUserCommand createUserCommand);
 
-    UserDTO getUserById(Long userId);
+    UserDto getUserById(Long userId);
 
-    List<UserDTO> getUsers();
+    List<UserDto> getUsers();
 
     boolean isPhoneNumberAlreadyRegister(String phoneNumber);
 
     boolean userExistsById(Long userId);
+
+    UserDto getUserByEmail(String email);
 
 }

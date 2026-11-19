@@ -4,4 +4,8 @@ public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(Long userId) {
         super("User with id: " + userId + " not founded");
     }
+
+    public UserNotFoundException(String email) {
+        super("User with email: " + email + " not founded");
+    }
 }
