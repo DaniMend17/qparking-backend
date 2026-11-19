@@ -1,12 +1,12 @@
-package com.github.danimend17.qparking.roles.internal.application;
+package com.github.danimend17.qparking.role.internal.application;
 
-import com.github.danimend17.qparking.roles.RoleDto;
-import com.github.danimend17.qparking.roles.RoleNotFoundException;
-import com.github.danimend17.qparking.roles.internal.web.RoleMapper;
-import com.github.danimend17.qparking.roles.internal.infrastructure.persistence.RoleRepository;
-import com.github.danimend17.qparking.roles.internal.web.RoleRequest;
-import com.github.danimend17.qparking.roles.internal.domain.DuplicatedRoleNameException;
-import com.github.danimend17.qparking.roles.internal.domain.Role;
+import com.github.danimend17.qparking.role.RoleDto;
+import com.github.danimend17.qparking.role.RoleNotFoundException;
+import com.github.danimend17.qparking.role.internal.web.RoleMapper;
+import com.github.danimend17.qparking.role.internal.infrastructure.persistence.RoleRepository;
+import com.github.danimend17.qparking.role.internal.web.RoleRequest;
+import com.github.danimend17.qparking.role.internal.domain.DuplicatedRoleNameException;
+import com.github.danimend17.qparking.role.internal.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

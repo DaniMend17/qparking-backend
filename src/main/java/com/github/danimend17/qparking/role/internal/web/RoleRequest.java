@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.roles.internal.web;
+package com.github.danimend17.qparking.role.internal.web;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

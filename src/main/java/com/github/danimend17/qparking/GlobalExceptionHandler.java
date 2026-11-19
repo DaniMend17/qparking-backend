@@ -1,8 +1,8 @@
 package com.github.danimend17.qparking;
 
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
-import com.github.danimend17.qparking.roles.RoleNameNotFoundException;
-import com.github.danimend17.qparking.roles.RoleNotFoundException;
+import com.github.danimend17.qparking.role.RoleNameNotFoundException;
+import com.github.danimend17.qparking.role.RoleNotFoundException;
 import com.github.danimend17.qparking.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
