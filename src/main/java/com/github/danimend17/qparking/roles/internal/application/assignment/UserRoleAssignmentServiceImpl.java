@@ -16,7 +16,7 @@ public class UserRoleAssignmentServiceImpl implements UserRoleAssignmentService 
 
     @Override
     public void assignDefaultRole(Long userId) {
-        final Long rolId = roleQueryService.getRoleByName("USER").roleId();
+        final Long rolId = roleQueryService.getRoleByName("ROLE_USER").roleId();
         final UserRole userRole = new UserRole(new UserRoleId(userId, rolId));
         userRoleRepository.save(userRole);
     }
