@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.user.internal;
+package com.github.danimend17.qparking.user;
 
 public record CreateUserEvent(
         Long userId,
