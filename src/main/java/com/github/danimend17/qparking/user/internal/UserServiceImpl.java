@@ -2,6 +2,7 @@ package com.github.danimend17.qparking.user.internal;
 
 import com.github.danimend17.qparking.user.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 class UserServiceImpl implements UserService {
 
+    private final ApplicationEventPublisher eventPublisher;
     private final UserRepository userRepository;
     private final UserMapper mapper;
 
@@ -22,6 +24,10 @@ class UserServiceImpl implements UserService {
         }
         final User user = mapper.commandToEntity(createUserCommand);
         final User savedUser = userRepository.save(user);
+
+        eventPublisher.publishEvent(new CreateUserEvent(savedUser.getUserId(),
+                savedUser.getPhoneNumber()));
+
         return mapper.entityToDTO(savedUser);
     }
 
