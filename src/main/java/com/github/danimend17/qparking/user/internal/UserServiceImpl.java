@@ -19,9 +19,14 @@ class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDto createUser(CreateUserCommand createUserCommand) {
+        if (userRepository.existsByEmail(createUserCommand.email())) {
+            throw new DuplicatedEmailException(createUserCommand.email());
+        }
+
         if (isPhoneNumberAlreadyRegister(createUserCommand.phoneNumber())) {
             throw new DuplicatedPhoneNumberException(createUserCommand.phoneNumber());
         }
+
         final User user = mapper.commandToEntity(createUserCommand);
         final User savedUser = userRepository.save(user);
 
