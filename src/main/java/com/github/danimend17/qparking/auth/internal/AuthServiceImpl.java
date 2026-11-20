@@ -1,6 +1,7 @@
 package com.github.danimend17.qparking.auth.internal;
 
-import com.github.danimend17.qparking.security.internal.jwt.JwtService;
+import com.github.danimend17.qparking.security.GeneratedToken;
+import com.github.danimend17.qparking.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,9 +18,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse login(String email, String password) {
         final Authentication authenticatedUser = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(email, password));
+                .authenticate(UsernamePasswordAuthenticationToken.unauthenticated(email, password));
 
-        final String accessToken = jwtService.generateToken(authenticatedUser);
-        return new AuthResponse(accessToken, "Bearer", jwtService.getTokenExpirationTime());
+        final GeneratedToken accessToken = jwtService.generateToken(authenticatedUser);
+        return new AuthResponse(accessToken.token(), "Bearer", accessToken.expiresIn().getSeconds());
     }
 }

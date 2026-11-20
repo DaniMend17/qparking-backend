@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.security.internal.jwt;
+package com.github.danimend17.qparking.security;
 
 import java.time.Duration;
 

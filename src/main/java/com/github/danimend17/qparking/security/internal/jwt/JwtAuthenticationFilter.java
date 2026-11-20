@@ -1,5 +1,6 @@
 package com.github.danimend17.qparking.security.internal.jwt;
 
+import com.github.danimend17.qparking.security.JwtService;
 import com.github.danimend17.qparking.security.internal.ApiError;
 import com.github.danimend17.qparking.security.internal.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;

@@ -1,5 +1,7 @@
 package com.github.danimend17.qparking.security.internal.jwt;
 
+import com.github.danimend17.qparking.security.GeneratedToken;
+import com.github.danimend17.qparking.security.JwtService;
 import com.github.danimend17.qparking.security.internal.CustomUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
