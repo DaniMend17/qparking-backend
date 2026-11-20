@@ -20,7 +20,7 @@ public class RegisterController {
 
     @PostMapping
     public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody CreateUserRequest request) {
-        final UserResponse userResponse = mapper.dtoToResponse(registerService.registerUser(request));
+        final UserResponse userResponse = mapper.toResponse(registerService.registerUser(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
 

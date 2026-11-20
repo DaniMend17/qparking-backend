@@ -18,14 +18,14 @@ class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(Long userId) {
         return userRepository.findById(userId)
-                .map(mapper::entityToDTO)
+                .map(mapper::toDto)
                 .orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     @Override
     public List<UserDto> getUsers() {
         return userRepository.findAll().stream()
-                .map(mapper::entityToDTO)
+                .map(mapper::toDto)
                 .toList();
     }
 
@@ -37,7 +37,7 @@ class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .map(mapper::entityToDTO)
+                .map(mapper::toDto)
                 .orElseThrow(() -> new UserNotFoundException(email));
     }
 

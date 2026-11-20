@@ -33,7 +33,7 @@ public class RegisterServiceImpl implements RegisterService {
             throw new DuplicatedPhoneNumberException(createUserRequest.phoneNumber());
         }
 
-        final User user = mapper.fromRequestModel(createUserRequest);
+        final User user = mapper.toModel(createUserRequest);
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
@@ -42,7 +42,7 @@ public class RegisterServiceImpl implements RegisterService {
         eventPublisher.publishEvent(new CreateUserEvent(savedUser.getUserId(),
                 savedUser.getPhoneNumber()));
 
-        return mapper.entityToDTO(savedUser);
+        return mapper.toDto(savedUser);
     }
 
     @Override
