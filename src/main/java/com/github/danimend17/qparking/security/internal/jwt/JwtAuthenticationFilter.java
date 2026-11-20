@@ -1,0 +1,77 @@
+package com.github.danimend17.qparking.security.internal.jwt;
+
+import com.github.danimend17.qparking.security.JwtService;
+import com.github.danimend17.qparking.security.internal.error.ApiError;
+import com.github.danimend17.qparking.security.internal.userdetails.CustomUserDetailsService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.Objects;
+
+@Component
+@RequiredArgsConstructor
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    private final JwtService jwtService;
+    private final CustomUserDetailsService userDetailsService;
+    private final ApiError apiError;
+
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws ServletException, IOException {
+
+        final String authorization = request.getHeader("Authorization");
+        if (Objects.isNull(authorization) || !authorization.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        final String authToken = authorization.substring(7);
+
+        try {
+            final JwtPayload jwtPayload = jwtService.validateToken(authToken);
+
+            if (Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
+                final SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+
+                final UserDetails userDetails = userDetailsService
+                        .loadUserById(Long.parseLong(jwtPayload.subject()));
+
+                final UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails, null,
+                                userDetails.getAuthorities()
+                        );
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                securityContext.setAuthentication(authentication);
+                SecurityContextHolder.setContext(securityContext);
+            }
+        } catch (ExpiredJwtException e) {
+            apiError.write(request, response,
+                    HttpStatus.UNAUTHORIZED, "Access token has expired");
+            return;
+        } catch (JwtException | AuthenticationException | NumberFormatException e) {
+            apiError.write(request, response,
+                    HttpStatus.UNAUTHORIZED, "Access token is invalid");
+            return;
+        }
+
+        filterChain.doFilter(request, response);
+    }
+}
