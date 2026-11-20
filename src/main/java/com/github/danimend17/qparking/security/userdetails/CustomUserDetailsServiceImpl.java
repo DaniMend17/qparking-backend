@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.security.internal;
+package com.github.danimend17.qparking.security.userdetails;
 
 import com.github.danimend17.qparking.role.UserRoleDto;
 import com.github.danimend17.qparking.role.UserRoleQueryService;
@@ -7,7 +7,6 @@ import com.github.danimend17.qparking.user.UserAuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 

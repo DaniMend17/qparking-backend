@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.security.internal;
+package com.github.danimend17.qparking.security.userdetails;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
