@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String generateToken(Authentication authentication) {
+    public GeneratedToken generateToken(Authentication authentication) {
         if (!(authentication.getPrincipal() instanceof CustomUserDetails userDetails)) {
             throw new IllegalArgumentException(
                     "Authentication principal must be CustomUserDetails"
@@ -43,13 +44,14 @@ public class JwtServiceImpl implements JwtService {
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
-        return Jwts.builder()
+        final String jwtToken = Jwts.builder()
                 .subject(String.valueOf(userDetails.userId()))
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(expiration))
                 .claim("roles", userRoles)
                 .signWith(this.signingKey, Jwts.SIG.HS256)
                 .compact();
+        return new GeneratedToken(jwtToken, Duration.ofMillis(expirationInMillis));
     }
 
     @Override
