@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.user.internal.application;
+package com.github.danimend17.qparking.user.internal.application.register;
 
 import com.github.danimend17.qparking.user.CreateUserEvent;
 import com.github.danimend17.qparking.user.UserDto;
@@ -34,8 +34,7 @@ public class RegisterServiceImpl implements RegisterService {
         }
 
         final User user = mapper.toModel(createUserRequest);
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+        user.setPassword(encodePassword(user.getPassword()));
 
         final User savedUser = userRepository.save(user);
 
@@ -49,5 +48,10 @@ public class RegisterServiceImpl implements RegisterService {
     @Transactional(readOnly = true)
     public boolean isPhoneNumberAlreadyRegister(String phoneNumber) {
         return userRepository.existsByPhoneNumber(phoneNumber);
+    }
+
+    private String encodePassword(String password) {
+        return passwordEncoder.encode(password);
+
     }
 }
