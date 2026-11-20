@@ -1,20 +1,21 @@
 package com.github.danimend17.qparking.user.internal.web;
 
-import com.github.danimend17.qparking.user.CreateUserCommand;
 import com.github.danimend17.qparking.user.UserDto;
 import com.github.danimend17.qparking.user.internal.domain.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserDto entityToDTO(User user);
+    UserDto toDto(User user);
 
-    CreateUserCommand requestToCommand(CreateUserRequest createUserRequest);
+    UserResponse toResponse(UserDto userDTO);
 
-    User commandToEntity(CreateUserCommand createUserCommand);
-
-    UserResponse dtoToResponse(UserDto userDTO);
-
+    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "credit", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    User toModel(CreateUserRequest request);
 
 }
