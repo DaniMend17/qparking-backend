@@ -1,8 +1,8 @@
 package com.github.danimend17.qparking.security.internal.jwt;
 
 import com.github.danimend17.qparking.security.JwtService;
-import com.github.danimend17.qparking.security.internal.ApiError;
-import com.github.danimend17.qparking.security.userdetails.CustomUserDetailsService;
+import com.github.danimend17.qparking.security.internal.error.ApiError;
+import com.github.danimend17.qparking.security.internal.userdetails.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;

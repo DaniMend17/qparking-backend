@@ -1,6 +1,6 @@
 package com.github.danimend17.qparking.security.internal.jwt;
 
-import com.github.danimend17.qparking.security.internal.ApiError;
+import com.github.danimend17.qparking.security.internal.error.ApiError;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.security.userdetails;
+package com.github.danimend17.qparking.security.internal.userdetails;
 
 import com.github.danimend17.qparking.role.UserRoleDto;
 import com.github.danimend17.qparking.role.UserRoleQueryService;

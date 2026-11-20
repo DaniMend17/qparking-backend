@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.security.userdetails;
+package com.github.danimend17.qparking.security.internal.userdetails;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;

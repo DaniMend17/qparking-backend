@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.security.internal;
+package com.github.danimend17.qparking.security.internal.error;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
