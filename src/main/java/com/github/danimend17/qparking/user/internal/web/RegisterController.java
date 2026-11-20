@@ -1,6 +1,6 @@
 package com.github.danimend17.qparking.user.internal.web;
 
-import com.github.danimend17.qparking.user.internal.application.RegisterService;
+import com.github.danimend17.qparking.user.internal.application.register.RegisterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
