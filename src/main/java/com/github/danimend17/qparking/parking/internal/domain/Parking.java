@@ -49,7 +49,7 @@ public class Parking {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL)
-    private List<ParkingSchedule> parkingSchedules = new ArrayList<>();
+    private List<ParkingSchedule> parkingSchedule = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
@@ -71,8 +71,8 @@ public class Parking {
         this.setLatitude(parking.getLatitude());
         this.setLongitude(parking.getLongitude());
 
-        if (Objects.isNull(parking.getParkingSchedules())) return;
-        parking.getParkingSchedules().forEach(this::addOrUpdateParkingSchedule);
+        if (Objects.isNull(parking.getParkingSchedule())) return;
+        parking.getParkingSchedule().forEach(this::addOrUpdateParkingSchedule);
     }
 
 
@@ -88,14 +88,14 @@ public class Parking {
         updateParkingScheduleDay(oldParkingSchedule, parkingSchedule);
     }
 
-    private void addNewParkingScheduleDay(ParkingSchedule parkingSchedule) {
-        if (Objects.isNull(parkingSchedule)) return;
-        parkingSchedules.add(parkingSchedule);
-        parkingSchedule.setParking(this);
+    private void addNewParkingScheduleDay(ParkingSchedule newParkingSchedule) {
+        if (Objects.isNull(newParkingSchedule)) return;
+        this.parkingSchedule.add(newParkingSchedule);
+        newParkingSchedule.setParking(this);
     }
 
     private Optional<ParkingSchedule> findParkingScheduleDay(OperationDay weekday) {
-        for (ParkingSchedule parkingSchedule : parkingSchedules) {
+        for (ParkingSchedule parkingSchedule : parkingSchedule) {
             if (parkingSchedule.getWeekday() == weekday) {
                 return Optional.of(parkingSchedule);
             }
@@ -109,6 +109,10 @@ public class Parking {
         oldParkingSchedule.setIsOpen(newParkingSchedule.getIsOpen());
         oldParkingSchedule.setOpeningTime(newParkingSchedule.getOpeningTime());
         oldParkingSchedule.setClosingTime(newParkingSchedule.getClosingTime());
+    }
+
+    public void assignUser(Long userId) {
+        this.userId = userId;
     }
 
 
