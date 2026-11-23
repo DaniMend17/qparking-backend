@@ -1,6 +1,7 @@
 package com.github.danimend17.qparking;
 
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
+import com.github.danimend17.qparking.parkingroles.ParkingRoleNotFoundException;
 import com.github.danimend17.qparking.role.RoleNameNotFoundException;
 import com.github.danimend17.qparking.role.RoleNotFoundException;
 import com.github.danimend17.qparking.user.UserNotFoundException;
@@ -56,5 +57,13 @@ public class GlobalExceptionHandler {
         problemDetail.setProperty("errors", errors);
         return problemDetail;
     }
+
+    @ExceptionHandler(ParkingRoleNotFoundException.class)
+    public ProblemDetail parkingRoleNotFoundHandler(ParkingRoleNotFoundException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
+        problemDetail.setTitle("Parking role not found error");
+        return problemDetail;
+    }
+
 
 }
