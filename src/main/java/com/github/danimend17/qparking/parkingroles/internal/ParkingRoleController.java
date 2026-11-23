@@ -2,7 +2,9 @@ package com.github.danimend17.qparking.parkingroles.internal;
 
 
 import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
+import com.github.danimend17.qparking.parkingroles.ParkingRoleQueryService;
 import com.github.danimend17.qparking.shared.identity.CurrentUserProvider;
+import com.github.danimend17.qparking.shared.models.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,11 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "parking-role")
+@RequestMapping(path = "parking-roles")
 @RequiredArgsConstructor
 public class ParkingRoleController {
 
     private final ParkingRoleCommandService parkingRoleCommandService;
+    private final ParkingRoleQueryService parkingRoleQueryService;
     private final CurrentUserProvider userProvider;
 
     @PostMapping
@@ -37,6 +40,14 @@ public class ParkingRoleController {
     public ResponseEntity<?> deleteParkingRole(@PathVariable Long roleId) {
         parkingRoleCommandService.deleteParkingRole(userProvider.getUserId(), roleId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<PageResult<ParkingRoleDto>> getUserParkingRoles(
+            @RequestParam(required = false, defaultValue = "0") Integer pageNumber
+    ) {
+        return ResponseEntity.ok(parkingRoleQueryService
+                .getUserParkingRoles(userProvider.getUserId(), pageNumber));
     }
 
 }
