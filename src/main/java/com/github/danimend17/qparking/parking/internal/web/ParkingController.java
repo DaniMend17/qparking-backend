@@ -23,14 +23,14 @@ public class ParkingController {
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingCommandService.createParking(request));
     }
 
-    @PutMapping(path = "{id}")
-    public ResponseEntity<ParkingDTO> updateParking(@PathVariable Long id, @RequestBody @Valid ParkingRequest request) {
-        return ResponseEntity.ok(parkingCommandService.updateParking(id, request));
+    @PutMapping
+    public ResponseEntity<ParkingDTO> updateParking(@RequestBody @Valid ParkingRequest request) {
+        return ResponseEntity.ok(parkingCommandService.updateParking(request));
     }
 
-    @DeleteMapping(path = "{id}")
-    public ResponseEntity<?> deleteParking(@PathVariable Long id) {
-        parkingCommandService.deleteParking(id);
+    @DeleteMapping
+    public ResponseEntity<?> deleteParking() {
+        parkingCommandService.deleteParking();
         return ResponseEntity.noContent().build();
     }
 
