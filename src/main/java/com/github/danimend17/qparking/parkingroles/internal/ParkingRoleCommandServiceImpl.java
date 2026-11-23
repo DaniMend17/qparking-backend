@@ -29,7 +29,8 @@ public class ParkingRoleCommandServiceImpl implements ParkingRoleCommandService 
             throw new DuplicatedParkingRoleNameException(request.roleName());
 
         final ParkingRole parkingRole = mapper.fromRequestToModel(request);
-        parkingRole.setParkingId(userParkingId);
+        parkingRole.assignParking(userParkingId);
+
         final ParkingRole savedParkingRole = parkingRoleRepository.save(parkingRole);
 
         return mapper.fromModelToDto(savedParkingRole);
@@ -41,10 +42,8 @@ public class ParkingRoleCommandServiceImpl implements ParkingRoleCommandService 
 
         final Long userParkingId = parkingQueryService.getParkingByUserId(userId).parkingId();
 
-        if (!parkingRoleRepository.existsByParkingIdAndParkingRoleId(userParkingId, parkingRoleId))
-            throw new InvalidParkingRoleAccessException(userId);
-
-        final ParkingRole toUpdateParkingRole = parkingRoleRepository.findById(parkingRoleId)
+        ParkingRole toUpdateParkingRole = parkingRoleRepository
+                .findByParkingIdAndParkingRoleId(userParkingId, parkingRoleId)
                 .orElseThrow(() -> new ParkingRoleNotFoundException(parkingRoleId));
 
         if (!request.roleName().equals(toUpdateParkingRole.getRoleName()) &&
@@ -63,10 +62,8 @@ public class ParkingRoleCommandServiceImpl implements ParkingRoleCommandService 
         if (!userService.userExistsById(userId)) throw new UserNotFoundException(userId);
         final Long userParkingId = parkingQueryService.getParkingByUserId(userId).parkingId();
 
-        if (!parkingRoleRepository.existsByParkingIdAndParkingRoleId(userParkingId, parkingRoleId))
-            throw new InvalidParkingRoleAccessException(userId);
-
-        ParkingRole toDeleteParkingRole = parkingRoleRepository.findById(parkingRoleId)
+        final ParkingRole toDeleteParkingRole = parkingRoleRepository
+                .findByParkingIdAndParkingRoleId(userParkingId, parkingRoleId)
                 .orElseThrow(() -> new ParkingRoleNotFoundException(parkingRoleId));
 
         parkingRoleRepository.delete(toDeleteParkingRole);
