@@ -10,6 +10,7 @@ import com.github.danimend17.qparking.shared.models.PageResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,9 +26,10 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
 
     @Override
     public PageResult<ParkingDto> getParkings(int pageNumber) {
-        Page<ParkingDto> parkingPage = parkingRepository.findAll(PageRequest.of(pageNumber, PAGE_SIZE))
+        Page<ParkingDto> parkingPage = parkingRepository.findAll(PageRequest.of(pageNumber,
+                        PAGE_SIZE, Sort.by("parkingId").ascending()))
                 .map(mapper::toDto);
-        return PageResult.toPageResult(parkingPage, pageNumber);
+        return PageResult.fromPage(parkingPage, pageNumber);
     }
 
     @Override
