@@ -1,7 +1,8 @@
 package com.github.danimend17.qparking;
 
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
-import com.github.danimend17.qparking.parkingroles.ParkingRoleNotFoundException;
+import com.github.danimend17.qparking.role.RoleNameNotFoundException;
+import com.github.danimend17.qparking.role.RoleNotFoundException;
 import com.github.danimend17.qparking.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -18,7 +19,7 @@ public class GlobalExceptionHandler {
     public ProblemDetail userNotFoundHandler(UserNotFoundException e) {
         final ProblemDetail problemDetail = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
-        problemDetail.setTitle("User not founded error");
+        problemDetail.setTitle("User not founded");
         return problemDetail;
     }
 
@@ -26,16 +27,21 @@ public class GlobalExceptionHandler {
     public ProblemDetail parkingNotFoundHandler(ParkingNotFoundException e) {
         final ProblemDetail problemDetail = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
-        problemDetail.setTitle("Parking not founded error");
+        problemDetail.setTitle("Parking not founded");
         return problemDetail;
     }
 
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ProblemDetail roleNotFoundHandler(RoleNotFoundException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        problemDetail.setTitle("Role not found error");
+        return problemDetail;
+    }
 
-    @ExceptionHandler(ParkingRoleNotFoundException.class)
-    public ProblemDetail parkingRoleNotFoundException(ParkingRoleNotFoundException e) {
-        final ProblemDetail problemDetail = ProblemDetail
-                .forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
-        problemDetail.setTitle("Parking role not founded error");
+    @ExceptionHandler(RoleNameNotFoundException.class)
+    public ProblemDetail roleNameNotFoundHandler(RoleNameNotFoundException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        problemDetail.setTitle("Role name not found error");
         return problemDetail;
     }
 

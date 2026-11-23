@@ -1,17 +1,17 @@
 package com.github.danimend17.qparking.parking.internal.web;
 
 import com.github.danimend17.qparking.parking.ParkingQueryService;
-import com.github.danimend17.qparking.parking.ParkingDTO;
+import com.github.danimend17.qparking.parking.ParkingDto;
 import com.github.danimend17.qparking.parking.internal.application.ParkingCommandService;
+import com.github.danimend17.qparking.shared.models.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "parking")
+@RequestMapping(path = "parkings")
 @RequiredArgsConstructor
 public class ParkingController {
 
@@ -19,30 +19,28 @@ public class ParkingController {
     private final ParkingQueryService parkingQueryService;
 
     @PostMapping
-    public ResponseEntity<ParkingDTO> createParking(@RequestBody @Valid ParkingRequest request) {
+    public ResponseEntity<ParkingDto> createParking(@RequestBody @Valid ParkingRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingCommandService.createParking(request));
     }
 
-    @PutMapping(path = "{id}")
-    public ResponseEntity<ParkingDTO> updateParking(@PathVariable Long id, @RequestBody @Valid ParkingRequest request) {
-        return ResponseEntity.ok(parkingCommandService.updateParking(id, request));
+    @PutMapping
+    public ResponseEntity<ParkingDto> updateParking(@RequestBody @Valid ParkingRequest request) {
+        return ResponseEntity.ok(parkingCommandService.updateParking(request));
     }
 
-    @DeleteMapping(path = "{id}")
-    public ResponseEntity<?> deleteParking(@PathVariable Long id) {
-        parkingCommandService.deleteParking(id);
+    @DeleteMapping
+    public ResponseEntity<?> deleteParking() {
+        parkingCommandService.deleteParking();
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<Page<ParkingDTO>> getAllParkings(@RequestParam int pageNumber) {
+    public ResponseEntity<PageResult<ParkingDto>> getAllParkings(@RequestParam int pageNumber) {
         return ResponseEntity.ok(parkingQueryService.getParkings(pageNumber));
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<ParkingDTO> getParkingById(@PathVariable Long id) {
+    public ResponseEntity<ParkingDto> getParkingById(@PathVariable Long id) {
         return ResponseEntity.ok(parkingQueryService.getParkingById(id));
     }
-
-
 }

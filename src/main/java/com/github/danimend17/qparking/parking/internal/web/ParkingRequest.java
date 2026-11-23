@@ -8,9 +8,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record ParkingRequest(
-        @NotNull(message = "User id value is mandatory")
-        Long userId,
-
         @NotBlank(message = "Parking name is mandatory")
         @Size(min = 10, max = 120,
                 message = "Parking name must have a min length of 10 characters and a max length of 120 characters")
