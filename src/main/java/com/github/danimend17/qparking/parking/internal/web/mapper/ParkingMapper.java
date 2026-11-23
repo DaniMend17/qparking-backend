@@ -25,7 +25,8 @@ public interface ParkingMapper {
     @AfterMapping
     default void addParkingScheduleReference(@MappingTarget Parking parking) {
         if (parking.getParkingSchedule() != null) {
-            parking.getParkingSchedule().forEach(parking::addOrUpdateParkingSchedule);
+            parking.getParkingSchedule().forEach(parkingSchedule ->
+                    parkingSchedule.setParking(parking));
         }
     }
 
