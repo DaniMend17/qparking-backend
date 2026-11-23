@@ -2,6 +2,7 @@ package com.github.danimend17.qparking.parkingroles.internal;
 
 
 import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
+import com.github.danimend17.qparking.shared.identity.CurrentUserProvider;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,28 +15,27 @@ import org.springframework.web.bind.annotation.*;
 public class ParkingRoleController {
 
     private final ParkingRoleCommandService parkingRoleCommandService;
+    private final CurrentUserProvider userProvider;
 
-    @PostMapping(path = "user/{id}")
-    public ResponseEntity<ParkingRoleDto> createParkingRole(
-            @PathVariable Long id,
-            @Valid @RequestBody ParkingRoleRequest request) {
+    @PostMapping
+    public ResponseEntity<ParkingRoleDto> createParkingRole(@Valid @RequestBody ParkingRoleRequest request) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(parkingRoleCommandService.createParkingRole(id, request));
+                .body(parkingRoleCommandService.createParkingRole(userProvider.getUserId(), request));
     }
 
-    @PatchMapping(path = "{roleId}/user/{userId}")
+    @PatchMapping(path = "{roleId}")
     public ResponseEntity<ParkingRoleDto> updateParkingRole(
             @PathVariable Long roleId,
-            @PathVariable Long userId,
             @Valid @RequestBody ParkingRoleRequest request
     ) {
-        return ResponseEntity.ok(parkingRoleCommandService.updateParkingRole(userId, roleId, request));
+        return ResponseEntity
+                .ok(parkingRoleCommandService.updateParkingRole(userProvider.getUserId(), roleId, request));
     }
 
-    @DeleteMapping(path = "{roleId}/user/{userId}")
-    public ResponseEntity<?> deleteParkingRole(@PathVariable Long roleId, @PathVariable Long userId) {
-        parkingRoleCommandService.deleteParkingRole(userId, roleId);
+    @DeleteMapping(path = "{roleId}")
+    public ResponseEntity<?> deleteParkingRole(@PathVariable Long roleId) {
+        parkingRoleCommandService.deleteParkingRole(userProvider.getUserId(), roleId);
         return ResponseEntity.noContent().build();
     }
 
