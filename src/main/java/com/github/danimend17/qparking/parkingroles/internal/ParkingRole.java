@@ -56,5 +56,9 @@ public class ParkingRole {
         this.setCommissionValue(parkingRole.getCommissionValue());
     }
 
+    public void assignParking(Long parkingId) {
+        this.parkingId = parkingId;
+    }
+
 
 }
