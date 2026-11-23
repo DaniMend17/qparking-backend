@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface ParkingRoleRepository extends JpaRepository<ParkingRole, Long> {
 
     @Query("""
@@ -17,9 +19,11 @@ public interface ParkingRoleRepository extends JpaRepository<ParkingRole, Long> 
     Page<ParkingRole> findAllByParkingId(Long parkingId, Pageable pageable);
 
     @Query("""
-            SELECT pr.roleName FROM ParkingRole pr WHERE pr.parkingId = :parkingId
+            SELECT pr.roleName FROM ParkingRole pr
+                         WHERE pr.parkingId = :parkingId
             """)
     Page<String> findAllRoleNamesByParkingId(@Param("parkingId") Long parkingId, Pageable pageable);
 
-    boolean existsByParkingIdAndParkingRoleId(Long parkingId, Long parkingRoleId);
+
+    Optional<ParkingRole> findByParkingIdAndParkingRoleId(Long parkingId, Long parkingRoleId);
 }
