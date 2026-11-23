@@ -1,6 +1,6 @@
 package com.github.danimend17.qparking.parking.internal.web.mapper;
 
-import com.github.danimend17.qparking.parking.ParkingDTO;
+import com.github.danimend17.qparking.parking.ParkingDto;
 import com.github.danimend17.qparking.parking.internal.domain.Parking;
 import com.github.danimend17.qparking.parking.internal.web.ParkingRequest;
 import org.mapstruct.AfterMapping;
@@ -18,9 +18,9 @@ public interface ParkingMapper {
     @Mapping(target = "userId", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    Parking fromRequestToEntity(ParkingRequest request);
+    Parking toModel(ParkingRequest request);
 
-    ParkingDTO fromEntityToDto(Parking entity);
+    ParkingDto toDto(Parking entity);
 
     @AfterMapping
     default void addParkingScheduleReference(@MappingTarget Parking parking) {

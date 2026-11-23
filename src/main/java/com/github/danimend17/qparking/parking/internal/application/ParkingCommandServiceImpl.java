@@ -1,6 +1,6 @@
 package com.github.danimend17.qparking.parking.internal.application;
 
-import com.github.danimend17.qparking.parking.ParkingDTO;
+import com.github.danimend17.qparking.parking.ParkingDto;
 import com.github.danimend17.qparking.parking.internal.domain.*;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
@@ -24,14 +24,14 @@ public class ParkingCommandServiceImpl implements ParkingCommandService {
     private final List<CommissionRateValidator> commissionRateValidators;
 
     @Override
-    public ParkingDTO createParking(ParkingRequest request) {
+    public ParkingDto createParking(ParkingRequest request) {
         if (parkingRepository.existsByParkingName(request.parkingName()))
             throw new DuplicatedParkingNameException(request.parkingName());
 
         if (parkingRepository.existsByUserId(currentUser.getUserId()))
             throw new ParkingLimitExceededException(currentUser.getUserId());
 
-        final Parking parking = parkingMapper.fromRequestToEntity(request);
+        final Parking parking = parkingMapper.toModel(request);
         parking.assignUser(currentUser.getUserId());
 
         commissionRateValidators.forEach(commissionRateValidator ->
@@ -39,11 +39,11 @@ public class ParkingCommandServiceImpl implements ParkingCommandService {
 
         final Parking savedParking = parkingRepository.save(parking);
 
-        return parkingMapper.fromEntityToDto(savedParking);
+        return parkingMapper.toDto(savedParking);
     }
 
     @Override
-    public ParkingDTO updateParking(ParkingRequest request) {
+    public ParkingDto updateParking(ParkingRequest request) {
         final Parking toUpdateParking = parkingRepository.findUserParking(currentUser.getUserId())
                 .orElseThrow(() -> new ParkingNotFoundForUserException(currentUser.getUserId()));
 
@@ -51,13 +51,13 @@ public class ParkingCommandServiceImpl implements ParkingCommandService {
                 parkingRepository.existsByParkingName(request.parkingName())) {
             throw new DuplicatedParkingNameException(request.parkingName());
         }
-        final Parking parking = parkingMapper.fromRequestToEntity(request);
+        final Parking parking = parkingMapper.toModel(request);
 
         commissionRateValidators.forEach(commissionRateValidator ->
                 commissionRateValidator.validate(parking));
 
         toUpdateParking.updateDetails(parking);
-        return parkingMapper.fromEntityToDto(parkingRepository.save(toUpdateParking));
+        return parkingMapper.toDto(parkingRepository.save(toUpdateParking));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.github.danimend17.qparking.parking.internal.application;
 
+import com.github.danimend17.qparking.parking.ParkingDto;
 import com.github.danimend17.qparking.parking.ParkingQueryService;
-import com.github.danimend17.qparking.parking.ParkingDTO;
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
 import com.github.danimend17.qparking.parking.internal.domain.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
@@ -23,15 +23,15 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
 
 
     @Override
-    public Page<ParkingDTO> getParkings(int pageNumber) {
+    public Page<ParkingDto> getParkings(int pageNumber) {
         return parkingRepository.findAll(PageRequest.of(pageNumber, PAGE_SIZE))
-                .map(mapper::fromEntityToDto);
+                .map(mapper::toDto);
     }
 
     @Override
-    public ParkingDTO getParkingById(Long parkingId) {
+    public ParkingDto getParkingById(Long parkingId) {
         return parkingRepository.findById(parkingId)
-                .map(mapper::fromEntityToDto)
+                .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundException(parkingId));
     }
 
@@ -46,9 +46,9 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
     }
 
     @Override
-    public ParkingDTO getParkingByUserId(Long userId) {
+    public ParkingDto getParkingByUserId(Long userId) {
         return parkingRepository.findByUserId(userId)
-                .map(mapper::fromEntityToDto)
+                .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
     }
 }

@@ -4,14 +4,14 @@ import org.springframework.data.domain.Page;
 
 public interface ParkingQueryService {
 
-    Page<ParkingDTO> getParkings(int pageNumber);
+    Page<ParkingDto> getParkings(int pageNumber);
 
-    ParkingDTO getParkingById(Long parkingId);
+    ParkingDto getParkingById(Long parkingId);
 
     boolean userHasAlreadyRegisterAParking(Long userId);
 
     boolean parkingExistsById(Long parkingId);
 
-    ParkingDTO getParkingByUserId(Long userId);
+    ParkingDto getParkingByUserId(Long userId);
 
 }

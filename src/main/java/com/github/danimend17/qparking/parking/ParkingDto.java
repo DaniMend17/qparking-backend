@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record ParkingDTO(
+public record ParkingDto(
         Long parkingId,
         Long userId,
         String parkingName,
@@ -17,6 +17,6 @@ public record ParkingDTO(
         Double longitude,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        List<ParkingScheduleDTO> parkingSchedule
+        List<ParkingScheduleDto> parkingSchedule
 ) {
 }
