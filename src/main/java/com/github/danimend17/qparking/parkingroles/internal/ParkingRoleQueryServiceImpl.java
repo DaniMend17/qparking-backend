@@ -47,7 +47,7 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
     }
 
     @Override
-    public PageResult<ParkingRoleDto> getParkingRolesOfUserParking(Long userId, int pageNumber) {
+    public PageResult<ParkingRoleDto> getUserParkingRoles(Long userId, int pageNumber) {
         final Long userParkingId = parkingQueryService.getParkingByUserId(userId).parkingId();
         final Page<ParkingRoleDto> parkingRoleNamesPage = parkingRoleRepository
                 .findAllByParkingId(userParkingId,

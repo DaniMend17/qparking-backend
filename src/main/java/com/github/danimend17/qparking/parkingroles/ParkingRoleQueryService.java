@@ -10,7 +10,7 @@ public interface ParkingRoleQueryService {
 
     PageResult<ParkingRoleDto> getParkingRolesOfParking(Long parkingId, int pageNumber);
 
-    PageResult<ParkingRoleDto> getParkingRolesOfUserParking(Long userId, int pageNumber);
+    PageResult<ParkingRoleDto> getUserParkingRoles(Long userId, int pageNumber);
 
     PageResult<String> getParkingRoleNamesOfParking(Long parkingId, int pageNumber);
 
