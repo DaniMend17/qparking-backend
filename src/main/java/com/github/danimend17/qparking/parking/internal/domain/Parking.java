@@ -76,7 +76,7 @@ public class Parking {
     }
 
 
-    public void addOrUpdateParkingSchedule(ParkingSchedule parkingSchedule) {
+    private void addOrUpdateParkingSchedule(ParkingSchedule parkingSchedule) {
         if (Objects.isNull(parkingSchedule)) return;
         Optional<ParkingSchedule> optionalParkingSchedule =
                 findParkingScheduleDay(parkingSchedule.getWeekday());
