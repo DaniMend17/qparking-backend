@@ -17,6 +17,6 @@ public record ParkingDTO(
         Double longitude,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        List<ParkingScheduleDTO> parkingSchedules
+        List<ParkingScheduleDTO> parkingSchedule
 ) {
 }
