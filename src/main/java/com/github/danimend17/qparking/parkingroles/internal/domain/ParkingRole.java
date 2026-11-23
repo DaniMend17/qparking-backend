@@ -1,9 +1,8 @@
-package com.github.danimend17.qparking.parkingroles.internal;
+package com.github.danimend17.qparking.parkingroles.internal.domain;
 
 import com.github.danimend17.qparking.shared.enums.CommissionRate;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;

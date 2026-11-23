@@ -1,9 +1,11 @@
-package com.github.danimend17.qparking.parkingroles.internal;
+package com.github.danimend17.qparking.parkingroles.internal.application;
 
 import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleNotFoundException;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleQueryService;
+import com.github.danimend17.qparking.parkingroles.internal.web.ParkingRoleMapper;
+import com.github.danimend17.qparking.parkingroles.internal.infrastructure.persistence.ParkingRoleRepository;
 import com.github.danimend17.qparking.shared.models.PageResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

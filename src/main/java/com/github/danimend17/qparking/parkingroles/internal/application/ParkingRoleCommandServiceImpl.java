@@ -1,8 +1,13 @@
-package com.github.danimend17.qparking.parkingroles.internal;
+package com.github.danimend17.qparking.parkingroles.internal.application;
 
 import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleNotFoundException;
+import com.github.danimend17.qparking.parkingroles.internal.web.ParkingRoleMapper;
+import com.github.danimend17.qparking.parkingroles.internal.infrastructure.persistence.ParkingRoleRepository;
+import com.github.danimend17.qparking.parkingroles.internal.web.ParkingRoleRequest;
+import com.github.danimend17.qparking.parkingroles.internal.domain.DuplicatedParkingRoleNameException;
+import com.github.danimend17.qparking.parkingroles.internal.domain.ParkingRole;
 import com.github.danimend17.qparking.user.UserNotFoundException;
 import com.github.danimend17.qparking.user.UserService;
 import lombok.RequiredArgsConstructor;

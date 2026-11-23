@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.parkingroles.internal;
+package com.github.danimend17.qparking.parkingroles.internal.domain;
 
 public class InvalidParkingRoleAccessException extends RuntimeException {
     public InvalidParkingRoleAccessException(Long userId) {

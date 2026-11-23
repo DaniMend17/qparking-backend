@@ -1,8 +1,9 @@
-package com.github.danimend17.qparking.parkingroles.internal;
+package com.github.danimend17.qparking.parkingroles.internal.web;
 
 
 import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleQueryService;
+import com.github.danimend17.qparking.parkingroles.internal.application.ParkingRoleCommandService;
 import com.github.danimend17.qparking.shared.identity.CurrentUserProvider;
 import com.github.danimend17.qparking.shared.models.PageResult;
 import jakarta.validation.Valid;

@@ -1,5 +1,6 @@
-package com.github.danimend17.qparking.parkingroles.internal;
+package com.github.danimend17.qparking.parkingroles.internal.infrastructure.persistence;
 
+import com.github.danimend17.qparking.parkingroles.internal.domain.ParkingRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
