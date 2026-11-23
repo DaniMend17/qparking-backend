@@ -38,7 +38,7 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
     }
 
     @Override
-    public PageResult<ParkingRoleDto> getParkingRolesOfParking(Long parkingId, int pageNumber) {
+    public PageResult<ParkingRoleDto> getParkingRolesByParkingId(Long parkingId, int pageNumber) {
         final Page<ParkingRoleDto> parkingRolePage = parkingRoleRepository
                 .findAllByParkingId(parkingId,
                         PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("parkingRoleId").ascending()))
@@ -58,7 +58,7 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
     }
 
     @Override
-    public PageResult<String> getParkingRoleNamesOfParking(Long parkingId, int pageNumber) {
+    public PageResult<String> getRoleNamesByParkingId(Long parkingId, int pageNumber) {
         final Page<String> parkingRoleNamesPage = parkingRoleRepository
                 .findAllRoleNamesByParkingId(parkingId,
                         PageRequest.of(pageNumber, PAGE_SIZE));
