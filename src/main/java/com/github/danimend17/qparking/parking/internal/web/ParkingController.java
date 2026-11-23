@@ -3,9 +3,9 @@ package com.github.danimend17.qparking.parking.internal.web;
 import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parking.ParkingDto;
 import com.github.danimend17.qparking.parking.internal.application.ParkingCommandService;
+import com.github.danimend17.qparking.shared.models.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ public class ParkingController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ParkingDto>> getAllParkings(@RequestParam int pageNumber) {
+    public ResponseEntity<PageResult<ParkingDto>> getAllParkings(@RequestParam int pageNumber) {
         return ResponseEntity.ok(parkingQueryService.getParkings(pageNumber));
     }
 
