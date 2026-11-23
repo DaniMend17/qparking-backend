@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
 
-    @Query("FROM Parking p JOIN FETCH p.parkingSchedules WHERE p.parkingId = :parkingId")
+    @Query("FROM Parking p JOIN FETCH p.parkingSchedule WHERE p.parkingId = :parkingId")
     Optional<Parking> findParkingWithScheduleById(Long parkingId);
 
     boolean existsByUserId(Long userId);
