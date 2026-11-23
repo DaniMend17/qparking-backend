@@ -9,7 +9,7 @@ public record PageResult<E>(
         int pageNumber
 ) {
 
-    public static <E> PageResult<E> toPageResult(Page<E> page, int pageNumber) {
+    public static <E> PageResult<E> fromPage(Page<E> page, int pageNumber) {
         return new PageResult<>(
                 page.getContent(),
                 page.getTotalElements(),
