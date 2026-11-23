@@ -1,14 +1,9 @@
 package com.github.danimend17.qparking.parking.internal.application;
 
 import com.github.danimend17.qparking.parking.ParkingDTO;
-import com.github.danimend17.qparking.parking.internal.domain.DuplicatedParkingNameException;
-import com.github.danimend17.qparking.parking.internal.domain.ParkingLimitExceededException;
-import com.github.danimend17.qparking.parking.ParkingNotFoundException;
-import com.github.danimend17.qparking.parking.internal.domain.Parking;
-import com.github.danimend17.qparking.parking.internal.domain.ParkingSchedule;
+import com.github.danimend17.qparking.parking.internal.domain.*;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
-import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingScheduleMapper;
 import com.github.danimend17.qparking.parking.internal.domain.commission.CommissionRateValidator;
 import com.github.danimend17.qparking.parking.internal.web.ParkingRequest;
 import com.github.danimend17.qparking.shared.identity.CurrentUserProvider;
@@ -26,7 +21,6 @@ public class ParkingCommandServiceImpl implements ParkingCommandService {
     private final ParkingRepository parkingRepository;
     private final ParkingMapper parkingMapper;
     private final CurrentUserProvider currentUser;
-    private final ParkingScheduleMapper parkingScheduleMapper;
     private final List<CommissionRateValidator> commissionRateValidators;
 
     @Override
@@ -49,30 +43,28 @@ public class ParkingCommandServiceImpl implements ParkingCommandService {
     }
 
     @Override
-    public ParkingDTO updateParking(Long parkingId, ParkingRequest request) {
-        if (parkingRepository.existsByParkingName(request.parkingName()))
+    public ParkingDTO updateParking(ParkingRequest request) {
+        final Parking toUpdateParking = parkingRepository.findUserParking(currentUser.getUserId())
+                .orElseThrow(() -> new ParkingNotFoundForUserException(currentUser.getUserId()));
+
+        if (!request.parkingName().equals(toUpdateParking.getParkingName()) &&
+                parkingRepository.existsByParkingName(request.parkingName())) {
             throw new DuplicatedParkingNameException(request.parkingName());
-
-        final Parking toUpdateParking = parkingRepository.findParkingWithScheduleById(parkingId)
-                .orElseThrow(() -> new ParkingNotFoundException(parkingId));
-
+        }
         final Parking parking = parkingMapper.fromRequestToEntity(request);
+
         commissionRateValidators.forEach(commissionRateValidator ->
                 commissionRateValidator.validate(parking));
 
-        final List<ParkingSchedule> parkingSchedule = request.parkingSchedule().stream()
-                .map(parkingScheduleMapper::fromRequestToEntity)
-                .toList();
-        parkingSchedule.forEach(parking::addOrUpdateParkingSchedule);
-
         toUpdateParking.updateDetails(parking);
-
         return parkingMapper.fromEntityToDto(parkingRepository.save(toUpdateParking));
     }
 
     @Override
-    public void deleteParking(Long parkingId) {
-        if (!parkingRepository.existsById(parkingId)) throw new ParkingNotFoundException(parkingId);
-        parkingRepository.deleteById(parkingId);
+    public void deleteParking() {
+        final Parking toDeleteParking = parkingRepository.findUserParking(currentUser.getUserId())
+                .orElseThrow(() -> new ParkingNotFoundForUserException(currentUser.getUserId()));
+
+        parkingRepository.delete(toDeleteParking);
     }
 }
