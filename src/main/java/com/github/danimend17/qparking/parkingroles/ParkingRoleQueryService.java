@@ -1,15 +1,17 @@
 package com.github.danimend17.qparking.parkingroles;
 
-import org.springframework.data.domain.Page;
+import com.github.danimend17.qparking.shared.models.PageResult;
 
 public interface ParkingRoleQueryService {
 
-    Page<ParkingRoleDto> getAllParkingRoles(int pageNumber);
+    PageResult<ParkingRoleDto> getAllParkingRoles(int pageNumber);
 
     ParkingRoleDto getParkingRoleById(Long parkingRoleId);
 
-    Page<ParkingRoleDto> getParkingRolesOfParkingWithId(Long parkingId, int pageNumber);
+    PageResult<ParkingRoleDto> getParkingRolesOfParking(Long parkingId, int pageNumber);
 
-    Page<String> getParkingRoleNamesOfParkingWithId(Long parkingId, int pageNumber);
+    PageResult<ParkingRoleDto> getParkingRolesOfUserParking(Long userId, int pageNumber);
+
+    PageResult<String> getParkingRoleNamesOfParking(Long parkingId, int pageNumber);
 
 }
