@@ -3,13 +3,14 @@ package com.github.danimend17.qparking.parking.internal.infrastructure.persisten
 import com.github.danimend17.qparking.parking.internal.domain.Parking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
 
-    @Query("FROM Parking p JOIN FETCH p.parkingSchedules WHERE p.parkingId = :parkingId")
-    Optional<Parking> findParkingWithScheduleById(Long parkingId);
+    @Query("FROM Parking p JOIN FETCH p.parkingSchedule WHERE p.userId = :userId")
+    Optional<Parking> findUserParking(@Param("userId") Long userId);
 
     boolean existsByUserId(Long userId);
 

@@ -1,14 +1,16 @@
 package com.github.danimend17.qparking.parking.internal.application;
 
+import com.github.danimend17.qparking.parking.ParkingDto;
 import com.github.danimend17.qparking.parking.ParkingQueryService;
-import com.github.danimend17.qparking.parking.ParkingDTO;
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
 import com.github.danimend17.qparking.parking.internal.domain.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
+import com.github.danimend17.qparking.shared.models.PageResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,15 +25,17 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
 
 
     @Override
-    public Page<ParkingDTO> getParkings(int pageNumber) {
-        return parkingRepository.findAll(PageRequest.of(pageNumber, PAGE_SIZE))
-                .map(mapper::fromEntityToDto);
+    public PageResult<ParkingDto> getParkings(int pageNumber) {
+        Page<ParkingDto> parkingPage = parkingRepository.findAll(PageRequest.of(pageNumber,
+                        PAGE_SIZE, Sort.by("parkingId").ascending()))
+                .map(mapper::toDto);
+        return PageResult.fromPage(parkingPage, pageNumber);
     }
 
     @Override
-    public ParkingDTO getParkingById(Long parkingId) {
+    public ParkingDto getParkingById(Long parkingId) {
         return parkingRepository.findById(parkingId)
-                .map(mapper::fromEntityToDto)
+                .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundException(parkingId));
     }
 
@@ -46,9 +50,9 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
     }
 
     @Override
-    public ParkingDTO getParkingByUserId(Long userId) {
+    public ParkingDto getParkingByUserId(Long userId) {
         return parkingRepository.findByUserId(userId)
-                .map(mapper::fromEntityToDto)
+                .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
     }
 }
