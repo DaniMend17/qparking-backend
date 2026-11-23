@@ -1,10 +1,10 @@
 package com.github.danimend17.qparking.parking;
 
-import org.springframework.data.domain.Page;
+import com.github.danimend17.qparking.shared.models.PageResult;
 
 public interface ParkingQueryService {
 
-    Page<ParkingDto> getParkings(int pageNumber);
+    PageResult<ParkingDto> getParkings(int pageNumber);
 
     ParkingDto getParkingById(Long parkingId);
 

@@ -6,6 +6,7 @@ import com.github.danimend17.qparking.parking.ParkingNotFoundException;
 import com.github.danimend17.qparking.parking.internal.domain.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
+import com.github.danimend17.qparking.shared.models.PageResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,9 +24,10 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
 
 
     @Override
-    public Page<ParkingDto> getParkings(int pageNumber) {
-        return parkingRepository.findAll(PageRequest.of(pageNumber, PAGE_SIZE))
+    public PageResult<ParkingDto> getParkings(int pageNumber) {
+        Page<ParkingDto> parkingPage = parkingRepository.findAll(PageRequest.of(pageNumber, PAGE_SIZE))
                 .map(mapper::toDto);
+        return PageResult.toPageResult(parkingPage, pageNumber);
     }
 
     @Override
