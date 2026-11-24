@@ -34,14 +34,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RoleNotFoundException.class)
     public ProblemDetail roleNotFoundHandler(RoleNotFoundException e) {
-        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Role not found error");
         return problemDetail;
     }
 
     @ExceptionHandler(RoleNameNotFoundException.class)
     public ProblemDetail roleNameNotFoundHandler(RoleNameNotFoundException e) {
-        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Role name not found error");
         return problemDetail;
     }
@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ParkingRoleNotFoundException.class)
     public ProblemDetail parkingRoleNotFoundHandler(ParkingRoleNotFoundException e) {
-        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Parking role not found error");
         return problemDetail;
     }
