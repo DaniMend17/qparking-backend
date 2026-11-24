@@ -4,7 +4,6 @@ package com.github.danimend17.qparking.parkingroles.internal.web;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleQueryService;
 import com.github.danimend17.qparking.parkingroles.internal.application.ParkingRoleCommandService;
-import com.github.danimend17.qparking.shared.identity.CurrentUserProvider;
 import com.github.danimend17.qparking.shared.models.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +18,11 @@ public class ParkingRoleController {
 
     private final ParkingRoleCommandService parkingRoleCommandService;
     private final ParkingRoleQueryService parkingRoleQueryService;
-    private final CurrentUserProvider userProvider;
 
     @PostMapping
     public ResponseEntity<ParkingRoleDto> createParkingRole(@Valid @RequestBody ParkingRoleRequest request) {
-
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(parkingRoleCommandService.createParkingRole(userProvider.getUserId(), request));
+                .body(parkingRoleCommandService.createParkingRole(request));
     }
 
     @PatchMapping(path = "{roleId}")
@@ -34,12 +31,12 @@ public class ParkingRoleController {
             @Valid @RequestBody ParkingRoleRequest request
     ) {
         return ResponseEntity
-                .ok(parkingRoleCommandService.updateParkingRole(userProvider.getUserId(), roleId, request));
+                .ok(parkingRoleCommandService.updateParkingRole(roleId, request));
     }
 
     @DeleteMapping(path = "{roleId}")
     public ResponseEntity<?> deleteParkingRole(@PathVariable Long roleId) {
-        parkingRoleCommandService.deleteParkingRole(userProvider.getUserId(), roleId);
+        parkingRoleCommandService.deleteParkingRole(roleId);
         return ResponseEntity.noContent().build();
     }
 
@@ -48,7 +45,7 @@ public class ParkingRoleController {
             @RequestParam(required = false, defaultValue = "0") Integer pageNumber
     ) {
         return ResponseEntity.ok(parkingRoleQueryService
-                .getUserParkingRoles(userProvider.getUserId(), pageNumber));
+                .getUserParkingRoles(pageNumber));
     }
 
 }
