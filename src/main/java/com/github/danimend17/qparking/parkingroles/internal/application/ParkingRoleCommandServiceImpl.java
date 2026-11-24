@@ -1,6 +1,6 @@
 package com.github.danimend17.qparking.parkingroles.internal.application;
 
-import com.github.danimend17.qparking.parking.ParkingQueryService;
+import com.github.danimend17.qparking.parking.UserParkingService;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleNotFoundException;
 import com.github.danimend17.qparking.parkingroles.internal.web.ParkingRoleMapper;
@@ -8,8 +8,6 @@ import com.github.danimend17.qparking.parkingroles.internal.infrastructure.persi
 import com.github.danimend17.qparking.parkingroles.internal.web.ParkingRoleRequest;
 import com.github.danimend17.qparking.parkingroles.internal.domain.DuplicatedParkingRoleNameException;
 import com.github.danimend17.qparking.parkingroles.internal.domain.ParkingRole;
-import com.github.danimend17.qparking.user.UserNotFoundException;
-import com.github.danimend17.qparking.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,15 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParkingRoleCommandServiceImpl implements ParkingRoleCommandService {
 
     private final ParkingRoleRepository parkingRoleRepository;
-    private final ParkingQueryService parkingQueryService;
-    private final UserService userService;
+    private final UserParkingService userParkingService;
     private final ParkingRoleMapper mapper;
 
     @Override
-    public ParkingRoleDto createParkingRole(Long userId, ParkingRoleRequest request) {
-        if (!userService.userExistsById(userId)) throw new UserNotFoundException(userId);
-
-        final Long userParkingId = parkingQueryService.getParkingByUserId(userId).parkingId();
+    public ParkingRoleDto createParkingRole(ParkingRoleRequest request) {
+        final Long userParkingId = userParkingService.getUserParkingId();
 
         if (parkingRoleRepository.roleNameExistsInParking(request.roleName(), userParkingId))
             throw new DuplicatedParkingRoleNameException(request.roleName());
@@ -42,35 +37,32 @@ public class ParkingRoleCommandServiceImpl implements ParkingRoleCommandService 
     }
 
     @Override
-    public ParkingRoleDto updateParkingRole(Long userId, Long parkingRoleId, ParkingRoleRequest request) {
-        if (!userService.userExistsById(userId)) throw new UserNotFoundException(userId);
+    public ParkingRoleDto updateParkingRole(Long parkingRoleId, ParkingRoleRequest request) {
+        final Long userParkingId = userParkingService.getUserParkingId();
 
-        final Long userParkingId = parkingQueryService.getParkingByUserId(userId).parkingId();
-
-        ParkingRole toUpdateParkingRole = parkingRoleRepository
+        final ParkingRole parkingRole = parkingRoleRepository
                 .findByParkingIdAndParkingRoleId(userParkingId, parkingRoleId)
                 .orElseThrow(() -> new ParkingRoleNotFoundException(parkingRoleId));
 
-        if (!request.roleName().equals(toUpdateParkingRole.getRoleName()) &&
-                parkingRoleRepository.roleNameExistsInParking(request.roleName(), toUpdateParkingRole.getParkingId()))
+        if (!request.roleName().equals(parkingRole.getRoleName()) &&
+                parkingRoleRepository.roleNameExistsInParking(request.roleName(), userParkingId))
             throw new DuplicatedParkingRoleNameException(request.roleName());
 
-        final ParkingRole sourceParkingRole = mapper.fromRequestToModel(request);
+        final ParkingRole source = mapper.fromRequestToModel(request);
 
-        toUpdateParkingRole.updateDetails(sourceParkingRole);
+        parkingRole.updateDetails(source);
 
-        return mapper.fromModelToDto(parkingRoleRepository.save(toUpdateParkingRole));
+        return mapper.fromModelToDto(parkingRoleRepository.save(parkingRole));
     }
 
     @Override
-    public void deleteParkingRole(Long userId, Long parkingRoleId) {
-        if (!userService.userExistsById(userId)) throw new UserNotFoundException(userId);
-        final Long userParkingId = parkingQueryService.getParkingByUserId(userId).parkingId();
+    public void deleteParkingRole(Long parkingRoleId) {
+        final Long userParkingId = userParkingService.getUserParkingId();
 
-        final ParkingRole toDeleteParkingRole = parkingRoleRepository
+        final ParkingRole parkingRole = parkingRoleRepository
                 .findByParkingIdAndParkingRoleId(userParkingId, parkingRoleId)
                 .orElseThrow(() -> new ParkingRoleNotFoundException(parkingRoleId));
 
-        parkingRoleRepository.delete(toDeleteParkingRole);
+        parkingRoleRepository.delete(parkingRole);
     }
 }

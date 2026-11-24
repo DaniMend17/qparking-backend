@@ -43,7 +43,6 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers("/auth/**", "/register/**").permitAll()
                         .requestMatchers("/users/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/parkings/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

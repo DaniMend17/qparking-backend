@@ -20,8 +20,8 @@ public interface ParkingRepository extends JpaRepository<Parking, Long> {
 
     @Query("""
             SELECT p.parkingId FROM Parking p
-                        WHERE p.userId = :userId
+                           WHERE p.userId = :userId
             """)
-    Optional<Long> findParkingIdByUserId(@Param("userId") Long userId);
+    Optional<Long> findUserParkingId(@Param("userId") Long userId);
 
 }

@@ -3,7 +3,6 @@ package com.github.danimend17.qparking.parking.internal.application;
 import com.github.danimend17.qparking.parking.ParkingDto;
 import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
-import com.github.danimend17.qparking.parking.internal.domain.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
 import com.github.danimend17.qparking.shared.models.PageResult;
@@ -25,11 +24,11 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
 
 
     @Override
-    public PageResult<ParkingDto> getParkings(int pageNumber) {
+    public PageResult<ParkingDto> getAllParkings(int pageNumber) {
         Page<ParkingDto> parkingPage = parkingRepository.findAll(PageRequest.of(pageNumber,
                         PAGE_SIZE, Sort.by("parkingId").ascending()))
                 .map(mapper::toDto);
-        return PageResult.fromPage(parkingPage);
+        return PageResult.fromPage(parkingPage, pageNumber);
     }
 
     @Override
@@ -37,28 +36,5 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
         return parkingRepository.findById(parkingId)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundException(parkingId));
-    }
-
-    @Override
-    public boolean userHasAlreadyRegisterAParking(Long userId) {
-        return parkingRepository.existsByUserId(userId);
-    }
-
-    @Override
-    public boolean parkingExistsById(Long parkingId) {
-        return parkingRepository.existsById(parkingId);
-    }
-
-    @Override
-    public ParkingDto getParkingByUserId(Long userId) {
-        return parkingRepository.findByUserId(userId)
-                .map(mapper::toDto)
-                .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
-    }
-
-    @Override
-    public Long getUserParkingId(Long userId) {
-        return parkingRepository.findParkingIdByUserId(userId)
-                .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
     }
 }
