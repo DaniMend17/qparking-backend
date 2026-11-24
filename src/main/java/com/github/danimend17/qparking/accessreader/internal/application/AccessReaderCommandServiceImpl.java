@@ -5,7 +5,7 @@ import com.github.danimend17.qparking.accessreader.internal.web.AccessReaderMapp
 import com.github.danimend17.qparking.accessreader.internal.infrastructure.persistence.AccessReaderRepository;
 import com.github.danimend17.qparking.accessreader.internal.web.AccessReaderRequest;
 import com.github.danimend17.qparking.accessreader.internal.domain.AccessReader;
-import com.github.danimend17.qparking.accessreader.internal.domain.DuplicatedReaderName;
+import com.github.danimend17.qparking.accessreader.internal.domain.DuplicatedReaderNameException;
 import com.github.danimend17.qparking.accessreader.internal.domain.ReaderNotFoundException;
 import com.github.danimend17.qparking.parking.UserParkingService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class AccessReaderCommandServiceImpl implements AccessReaderCommandServic
 
         if (accessReaderRepository.existsByAccessNameAndParkingId(
                 accessReaderRequest.accessName(), userParkingId)) {
-            throw new DuplicatedReaderName(accessReaderRequest.accessName());
+            throw new DuplicatedReaderNameException(accessReaderRequest.accessName());
         }
         final AccessReader accessReader = mapper.toModel(accessReaderRequest);
         accessReader.assignParking(userParkingId);
@@ -46,7 +46,7 @@ public class AccessReaderCommandServiceImpl implements AccessReaderCommandServic
         if (!accessReaderRequest.accessName().equals(accessReader.getAccessName()) &&
                 accessReaderRepository.existsByAccessNameAndParkingId(accessReaderRequest.accessName(),
                         accessReader.getParkingId())) {
-            throw new DuplicatedReaderName(accessReaderRequest.accessName());
+            throw new DuplicatedReaderNameException(accessReaderRequest.accessName());
         }
         accessReader.updateDetails(mapper.toModel(accessReaderRequest));
 
