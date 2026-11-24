@@ -7,8 +7,7 @@ import com.github.danimend17.qparking.accessreader.internal.AccessReaderRequest;
 import com.github.danimend17.qparking.accessreader.internal.domain.AccessReader;
 import com.github.danimend17.qparking.accessreader.internal.domain.DuplicatedReaderName;
 import com.github.danimend17.qparking.accessreader.internal.domain.ReaderNotFoundException;
-import com.github.danimend17.qparking.parking.ParkingQueryService;
-import com.github.danimend17.qparking.shared.identity.CurrentUserProvider;
+import com.github.danimend17.qparking.parking.UserParkingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +19,11 @@ public class AccessReaderCommandServiceImpl implements AccessReaderCommandServic
 
     private final AccessReaderRepository accessReaderRepository;
     private final AccessReaderMapper mapper;
-    private final CurrentUserProvider currentUserProvider;
-    private final ParkingQueryService parkingQueryService;
+    private final UserParkingService userParkingService;
 
     @Override
     public AccessReaderDto createAccessReader(AccessReaderRequest accessReaderRequest) {
-        final Long userParkingId = parkingQueryService.getUserParkingId(currentUserProvider.getUserId());
+        final Long userParkingId = userParkingService.getUserParkingId();
 
         if (accessReaderRepository.existsByAccessNameAndParkingId(
                 accessReaderRequest.accessName(), userParkingId)) {
@@ -39,7 +37,7 @@ public class AccessReaderCommandServiceImpl implements AccessReaderCommandServic
 
     @Override
     public AccessReaderDto updateAccessReader(Long accessReaderId, AccessReaderRequest accessReaderRequest) {
-        final Long userParkingId = parkingQueryService.getUserParkingId(currentUserProvider.getUserId());
+        final Long userParkingId = userParkingService.getUserParkingId();
 
         final AccessReader accessReader = accessReaderRepository
                 .findByReaderIdAndParkingId(accessReaderId, userParkingId)
@@ -57,7 +55,7 @@ public class AccessReaderCommandServiceImpl implements AccessReaderCommandServic
 
     @Override
     public void deleteAccessReader(Long accessReaderId) {
-        final Long userParkingId = parkingQueryService.getUserParkingId(currentUserProvider.getUserId());
+        final Long userParkingId = userParkingService.getUserParkingId();
         final AccessReader accessReader = accessReaderRepository
                 .findByReaderIdAndParkingId(accessReaderId, userParkingId)
                 .orElseThrow(() -> new ReaderNotFoundException(accessReaderId));
