@@ -49,7 +49,7 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
     }
 
     @Override
-    public PageResult<ParkingRoleDto> getUserParkingRoles(Long userId, int pageNumber) {
+    public PageResult<ParkingRoleDto> getUserParkingRoles(int pageNumber) {
         final Long userParkingId = userParkingService.getUserParkingId();
         final Page<ParkingRoleDto> parkingRoleNamesPage = parkingRoleRepository
                 .findAllByParkingId(userParkingId,
