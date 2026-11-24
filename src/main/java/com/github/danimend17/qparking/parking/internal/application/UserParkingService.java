@@ -4,7 +4,7 @@ import com.github.danimend17.qparking.parking.ParkingDto;
 
 public interface UserParkingService {
 
-    ParkingDto getUserParking(Long userId);
+    ParkingDto getUserParking();
 
-    Long getUserParkingId(Long userId);
+    Long getUserParkingId();
 }
