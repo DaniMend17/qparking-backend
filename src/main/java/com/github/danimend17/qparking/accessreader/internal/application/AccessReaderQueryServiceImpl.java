@@ -4,6 +4,7 @@ import com.github.danimend17.qparking.accessreader.AccessReaderDto;
 import com.github.danimend17.qparking.accessreader.AccessReaderQueryService;
 import com.github.danimend17.qparking.accessreader.internal.AccessReaderMapper;
 import com.github.danimend17.qparking.accessreader.internal.infrastructure.persistence.AccessReaderRepository;
+import com.github.danimend17.qparking.parking.UserParkingService;
 import com.github.danimend17.qparking.shared.models.PageResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,11 +20,13 @@ public class AccessReaderQueryServiceImpl implements AccessReaderQueryService {
 
     private final AccessReaderRepository accessReaderRepository;
     private final AccessReaderMapper mapper;
+    private final UserParkingService userParkingService;
     private static final int PAGE_SIZE = 10;
 
     @Override
-    public PageResult<AccessReaderDto> getParkingReaders(Long parkingId, int pageNumber) {
-        final Page<AccessReaderDto> accessReaderPage = accessReaderRepository.findAllByParkingId(parkingId,
+    public PageResult<AccessReaderDto> getParkingReaders(int pageNumber) {
+        final Page<AccessReaderDto> accessReaderPage = accessReaderRepository
+                .findAllByParkingId(userParkingService.getUserParkingId(),
                         PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("readerId")))
                 .map(mapper::toDto);
 
