@@ -38,6 +38,7 @@ public class AccessReader {
     public void prePersist() {
         if (createdAt == null) createdAt = LocalDateTime.now();
         if (updatedAt == null) updatedAt = LocalDateTime.now();
+        if (isActive == null) isActive = false;
     }
 
 }
