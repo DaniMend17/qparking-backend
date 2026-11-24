@@ -62,7 +62,7 @@ public class ParkingCommandServiceImpl implements ParkingCommandService {
 
     @Override
     public void deleteParking() {
-        final Parking toDeleteParking = parkingRepository.findUserParking(currentUser.getUserId())
+        final Parking toDeleteParking = parkingRepository.findByUserId(currentUser.getUserId())
                 .orElseThrow(() -> new ParkingNotFoundForUserException(currentUser.getUserId()));
 
         parkingRepository.delete(toDeleteParking);
