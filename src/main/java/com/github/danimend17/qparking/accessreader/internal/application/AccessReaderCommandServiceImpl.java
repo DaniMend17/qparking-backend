@@ -1,9 +1,9 @@
 package com.github.danimend17.qparking.accessreader.internal.application;
 
 import com.github.danimend17.qparking.accessreader.AccessReaderDto;
-import com.github.danimend17.qparking.accessreader.internal.AccessReaderMapper;
+import com.github.danimend17.qparking.accessreader.internal.web.AccessReaderMapper;
 import com.github.danimend17.qparking.accessreader.internal.infrastructure.persistence.AccessReaderRepository;
-import com.github.danimend17.qparking.accessreader.internal.AccessReaderRequest;
+import com.github.danimend17.qparking.accessreader.internal.web.AccessReaderRequest;
 import com.github.danimend17.qparking.accessreader.internal.domain.AccessReader;
 import com.github.danimend17.qparking.accessreader.internal.domain.DuplicatedReaderName;
 import com.github.danimend17.qparking.accessreader.internal.domain.ReaderNotFoundException;

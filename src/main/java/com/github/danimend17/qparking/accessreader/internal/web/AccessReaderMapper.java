@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.accessreader.internal;
+package com.github.danimend17.qparking.accessreader.internal.web;
 
 import com.github.danimend17.qparking.accessreader.AccessReaderDto;
 import com.github.danimend17.qparking.accessreader.internal.domain.AccessReader;

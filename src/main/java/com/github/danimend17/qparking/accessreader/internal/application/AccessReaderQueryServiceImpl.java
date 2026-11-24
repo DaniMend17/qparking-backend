@@ -2,7 +2,7 @@ package com.github.danimend17.qparking.accessreader.internal.application;
 
 import com.github.danimend17.qparking.accessreader.AccessReaderDto;
 import com.github.danimend17.qparking.accessreader.AccessReaderQueryService;
-import com.github.danimend17.qparking.accessreader.internal.AccessReaderMapper;
+import com.github.danimend17.qparking.accessreader.internal.web.AccessReaderMapper;
 import com.github.danimend17.qparking.accessreader.internal.infrastructure.persistence.AccessReaderRepository;
 import com.github.danimend17.qparking.parking.UserParkingService;
 import com.github.danimend17.qparking.shared.models.PageResult;

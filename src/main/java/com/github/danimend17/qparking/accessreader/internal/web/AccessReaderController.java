@@ -2,7 +2,6 @@ package com.github.danimend17.qparking.accessreader.internal.web;
 
 import com.github.danimend17.qparking.accessreader.AccessReaderDto;
 import com.github.danimend17.qparking.accessreader.AccessReaderQueryService;
-import com.github.danimend17.qparking.accessreader.internal.AccessReaderRequest;
 import com.github.danimend17.qparking.accessreader.internal.application.AccessReaderCommandService;
 import com.github.danimend17.qparking.shared.models.PageResult;
 import jakarta.validation.Valid;

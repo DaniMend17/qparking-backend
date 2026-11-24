@@ -1,7 +1,7 @@
 package com.github.danimend17.qparking.accessreader.internal.application;
 
 import com.github.danimend17.qparking.accessreader.AccessReaderDto;
-import com.github.danimend17.qparking.accessreader.internal.AccessReaderRequest;
+import com.github.danimend17.qparking.accessreader.internal.web.AccessReaderRequest;
 
 public interface AccessReaderCommandService {
 
