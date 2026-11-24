@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.accessreader.internal;
+package com.github.danimend17.qparking.accessreader.internal.infrastructure.persistence;
 
 import com.github.danimend17.qparking.accessreader.internal.domain.AccessReader;
 import org.springframework.data.jpa.repository.JpaRepository;
