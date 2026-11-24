@@ -8,10 +8,6 @@ public interface ParkingQueryService {
 
     ParkingDto getParkingById(Long parkingId);
 
-    boolean userHasAlreadyRegisterAParking(Long userId);
-
-    boolean parkingExistsById(Long parkingId);
-
     ParkingDto getParkingByUserId(Long userId);
 
 }

@@ -40,16 +40,6 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
     }
 
     @Override
-    public boolean userHasAlreadyRegisterAParking(Long userId) {
-        return parkingRepository.existsByUserId(userId);
-    }
-
-    @Override
-    public boolean parkingExistsById(Long parkingId) {
-        return parkingRepository.existsById(parkingId);
-    }
-
-    @Override
     public ParkingDto getParkingByUserId(Long userId) {
         return parkingRepository.findByUserId(userId)
                 .map(mapper::toDto)
