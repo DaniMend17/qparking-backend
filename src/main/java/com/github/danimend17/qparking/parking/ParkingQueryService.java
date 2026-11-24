@@ -7,7 +7,4 @@ public interface ParkingQueryService {
     PageResult<ParkingDto> getAllParkings(int pageNumber);
 
     ParkingDto getParkingById(Long parkingId);
-
-    ParkingDto getParkingByUserId(Long userId);
-
 }

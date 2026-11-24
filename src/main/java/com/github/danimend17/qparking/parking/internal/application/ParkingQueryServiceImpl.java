@@ -3,7 +3,6 @@ package com.github.danimend17.qparking.parking.internal.application;
 import com.github.danimend17.qparking.parking.ParkingDto;
 import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
-import com.github.danimend17.qparking.parking.internal.domain.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
 import com.github.danimend17.qparking.shared.models.PageResult;
@@ -37,12 +36,5 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
         return parkingRepository.findById(parkingId)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundException(parkingId));
-    }
-
-    @Override
-    public ParkingDto getParkingByUserId(Long userId) {
-        return parkingRepository.findByUserId(userId)
-                .map(mapper::toDto)
-                .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
     }
 }
