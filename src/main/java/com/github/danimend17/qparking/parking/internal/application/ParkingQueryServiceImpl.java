@@ -29,7 +29,7 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
         Page<ParkingDto> parkingPage = parkingRepository.findAll(PageRequest.of(pageNumber,
                         PAGE_SIZE, Sort.by("parkingId").ascending()))
                 .map(mapper::toDto);
-        return PageResult.fromPage(parkingPage, pageNumber);
+        return PageResult.fromPage(parkingPage);
     }
 
     @Override

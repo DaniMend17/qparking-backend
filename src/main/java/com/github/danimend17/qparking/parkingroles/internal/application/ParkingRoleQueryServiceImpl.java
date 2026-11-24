@@ -29,7 +29,7 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
         final Page<ParkingRoleDto> parkingRolePage = parkingRoleRepository
                 .findAll(PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("parkingRoleId").ascending()))
                 .map(mapper::fromModelToDto);
-        return PageResult.fromPage(parkingRolePage, pageNumber);
+        return PageResult.fromPage(parkingRolePage);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
                 .findAllByParkingId(parkingId,
                         PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("parkingRoleId").ascending()))
                 .map(mapper::fromModelToDto);
-        return PageResult.fromPage(parkingRolePage, pageNumber);
+        return PageResult.fromPage(parkingRolePage);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
                         PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("parkingRoleId").ascending()))
                 .map(mapper::fromModelToDto);
 
-        return PageResult.fromPage(parkingRoleNamesPage, pageNumber);
+        return PageResult.fromPage(parkingRoleNamesPage);
     }
 
     @Override
@@ -65,6 +65,6 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
                 .findAllRoleNamesByParkingId(parkingId,
                         PageRequest.of(pageNumber, PAGE_SIZE));
 
-        return PageResult.fromPage(parkingRoleNamesPage, pageNumber);
+        return PageResult.fromPage(parkingRoleNamesPage);
     }
 }
