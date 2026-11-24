@@ -1,6 +1,7 @@
 package com.github.danimend17.qparking.accessreader.internal;
 
 import com.github.danimend17.qparking.accessreader.AccessReaderDto;
+import com.github.danimend17.qparking.accessreader.internal.domain.AccessReader;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

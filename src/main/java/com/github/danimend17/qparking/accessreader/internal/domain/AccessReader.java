@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.accessreader.internal;
+package com.github.danimend17.qparking.accessreader.internal.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

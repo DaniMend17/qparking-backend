@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.accessreader.internal;
+package com.github.danimend17.qparking.accessreader.internal.domain;
 
 public class ReaderNotFoundException extends RuntimeException {
     public ReaderNotFoundException(Long readerId) {

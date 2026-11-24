@@ -1,6 +1,9 @@
 package com.github.danimend17.qparking.accessreader.internal;
 
 import com.github.danimend17.qparking.accessreader.AccessReaderDto;
+import com.github.danimend17.qparking.accessreader.internal.domain.AccessReader;
+import com.github.danimend17.qparking.accessreader.internal.domain.DuplicatedReaderName;
+import com.github.danimend17.qparking.accessreader.internal.domain.ReaderNotFoundException;
 import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.shared.identity.CurrentUserProvider;
 import lombok.RequiredArgsConstructor;

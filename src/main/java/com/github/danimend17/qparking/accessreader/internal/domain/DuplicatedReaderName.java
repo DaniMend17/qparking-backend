@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.accessreader.internal;
+package com.github.danimend17.qparking.accessreader.internal.domain;
 
 public class DuplicatedReaderName extends RuntimeException {
     public DuplicatedReaderName(String readerName) {

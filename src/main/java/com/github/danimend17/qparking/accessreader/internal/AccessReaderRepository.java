@@ -1,5 +1,6 @@
 package com.github.danimend17.qparking.accessreader.internal;
 
+import com.github.danimend17.qparking.accessreader.internal.domain.AccessReader;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
