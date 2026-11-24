@@ -50,4 +50,10 @@ public class AccessReader {
         this.parkingId = parkingId;
     }
 
+    public void updateDetails(AccessReader sourceAccessReader) {
+        this.accessName = sourceAccessReader.accessName;
+        this.isEntry = sourceAccessReader.isEntry;
+        this.isActive = sourceAccessReader.isActive;
+    }
+
 }
