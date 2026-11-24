@@ -28,7 +28,7 @@ public class AccessReader {
     @Column(nullable = false)
     private Boolean isActive;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
@@ -39,6 +39,15 @@ public class AccessReader {
         if (createdAt == null) createdAt = LocalDateTime.now();
         if (updatedAt == null) updatedAt = LocalDateTime.now();
         if (isActive == null) isActive = false;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+    public void assignParking(Long parkingId) {
+        this.parkingId = parkingId;
     }
 
 }
