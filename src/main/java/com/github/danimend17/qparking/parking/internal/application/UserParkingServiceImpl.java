@@ -21,15 +21,17 @@ public class UserParkingServiceImpl implements UserParkingService {
 
     @Override
     public ParkingDto getUserParking() {
-        return parkingRepository.findByUserId(getUserId())
+        final Long userId = getUserId();
+        return parkingRepository.findByUserId(userId)
                 .map(mapper::toDto)
-                .orElseThrow(() -> new ParkingNotFoundForUserException(getUserId()));
+                .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
     }
 
     @Override
     public Long getUserParkingId() {
-        return parkingRepository.findUserParkingId(getUserId())
-                .orElseThrow(() -> new ParkingNotFoundForUserException(getUserId()));
+        final Long userId = getUserId();
+        return parkingRepository.findUserParkingId(userId)
+                .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
     }
 
     private Long getUserId() {
