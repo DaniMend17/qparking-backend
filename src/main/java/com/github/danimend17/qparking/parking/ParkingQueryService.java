@@ -14,4 +14,6 @@ public interface ParkingQueryService {
 
     ParkingDto getParkingByUserId(Long userId);
 
+    Long getUserParkingId(Long userId);
+
 }

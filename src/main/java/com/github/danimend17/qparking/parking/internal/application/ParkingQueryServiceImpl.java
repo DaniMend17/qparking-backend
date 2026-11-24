@@ -55,4 +55,10 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
                 .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
     }
+
+    @Override
+    public Long getUserParkingId(Long userId) {
+        return parkingRepository.findParkingIdByUserId(userId)
+                .orElseThrow(() -> new ParkingNotFoundForUserException(userId));
+    }
 }
