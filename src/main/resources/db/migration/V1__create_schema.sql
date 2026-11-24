@@ -104,7 +104,7 @@ CREATE TABLE parking_access_readers
 (
     parking_access_reader_id bigserial             NOT NULL,
     parking_id               bigint                NOT NULL,
-    access_name              character varying(25) NOT NULL,
+    access_name              character varying(75) NOT NULL,
     is_entry                 boolean               NOT NULL,
     is_active                boolean               NOT NULL,
     created_at               timestamp             NOT NULL,
