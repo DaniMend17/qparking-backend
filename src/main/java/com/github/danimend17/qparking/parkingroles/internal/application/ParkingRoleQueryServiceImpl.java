@@ -1,6 +1,6 @@
 package com.github.danimend17.qparking.parkingroles.internal.application;
 
-import com.github.danimend17.qparking.parking.ParkingQueryService;
+import com.github.danimend17.qparking.parking.UserParkingService;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleDto;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleNotFoundException;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleQueryService;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
 
     private final ParkingRoleRepository parkingRoleRepository;
-    private final ParkingQueryService parkingQueryService;
+    private final UserParkingService userParkingService;
     private final ParkingRoleMapper mapper;
     private static final int PAGE_SIZE = 5;
 
@@ -50,7 +50,7 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
 
     @Override
     public PageResult<ParkingRoleDto> getUserParkingRoles(Long userId, int pageNumber) {
-        final Long userParkingId = parkingQueryService.getParkingByUserId(userId).parkingId();
+        final Long userParkingId = userParkingService.getUserParkingId();
         final Page<ParkingRoleDto> parkingRoleNamesPage = parkingRoleRepository
                 .findAllByParkingId(userParkingId,
                         PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("parkingRoleId").ascending()))
