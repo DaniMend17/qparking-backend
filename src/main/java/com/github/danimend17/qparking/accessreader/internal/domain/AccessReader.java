@@ -53,7 +53,7 @@ public class AccessReader {
     public void updateDetails(AccessReader sourceAccessReader) {
         this.accessName = sourceAccessReader.accessName;
         this.isEntry = sourceAccessReader.isEntry;
-        this.isActive = sourceAccessReader.isActive;
+        if (sourceAccessReader.isActive != null) this.isActive = sourceAccessReader.isActive;
     }
 
 }
