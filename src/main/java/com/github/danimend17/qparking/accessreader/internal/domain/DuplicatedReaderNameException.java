@@ -1,7 +1,7 @@
 package com.github.danimend17.qparking.accessreader.internal.domain;
 
-public class DuplicatedReaderName extends RuntimeException {
-    public DuplicatedReaderName(String readerName) {
+public class DuplicatedReaderNameException extends RuntimeException {
+    public DuplicatedReaderNameException(String readerName) {
         super("Reader with name: " + readerName + " has already been register in parking");
     }
 }
