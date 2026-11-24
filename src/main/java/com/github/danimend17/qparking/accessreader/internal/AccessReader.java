@@ -1,0 +1,43 @@
+package com.github.danimend17.qparking.accessreader.internal;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "parking_access_readers")
+@Getter
+@Setter
+public class AccessReader {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "parking_access_reader_id")
+    private Long readerId;
+
+    @Column(nullable = false)
+    private Long parkingId;
+
+    @Column(length = 25, nullable = false)
+    private String accessName;
+
+    @Column(nullable = false)
+    private Boolean isEntry;
+
+    @Column(nullable = false)
+    private Boolean isActive;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) createdAt = LocalDateTime.now();
+        if (updatedAt == null) updatedAt = LocalDateTime.now();
+    }
+
+}
