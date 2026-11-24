@@ -25,7 +25,7 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
 
 
     @Override
-    public PageResult<ParkingDto> getParkings(int pageNumber) {
+    public PageResult<ParkingDto> getAllParkings(int pageNumber) {
         Page<ParkingDto> parkingPage = parkingRepository.findAll(PageRequest.of(pageNumber,
                         PAGE_SIZE, Sort.by("parkingId").ascending()))
                 .map(mapper::toDto);
@@ -37,16 +37,6 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
         return parkingRepository.findById(parkingId)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundException(parkingId));
-    }
-
-    @Override
-    public boolean userHasAlreadyRegisterAParking(Long userId) {
-        return parkingRepository.existsByUserId(userId);
-    }
-
-    @Override
-    public boolean parkingExistsById(Long parkingId) {
-        return parkingRepository.existsById(parkingId);
     }
 
     @Override

@@ -1,9 +1,8 @@
 package com.github.danimend17.qparking.parking.internal.web;
 
-import com.github.danimend17.qparking.parking.ParkingQueryService;
 import com.github.danimend17.qparking.parking.ParkingDto;
+import com.github.danimend17.qparking.parking.UserParkingService;
 import com.github.danimend17.qparking.parking.internal.application.ParkingCommandService;
-import com.github.danimend17.qparking.shared.models.PageResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class ParkingController {
 
     private final ParkingCommandService parkingCommandService;
-    private final ParkingQueryService parkingQueryService;
+    private final UserParkingService userParkingService;
 
     @PostMapping
     public ResponseEntity<ParkingDto> createParking(@RequestBody @Valid ParkingRequest request) {
@@ -35,12 +34,7 @@ public class ParkingController {
     }
 
     @GetMapping
-    public ResponseEntity<PageResult<ParkingDto>> getAllParkings(@RequestParam int pageNumber) {
-        return ResponseEntity.ok(parkingQueryService.getParkings(pageNumber));
-    }
-
-    @GetMapping(path = "{id}")
-    public ResponseEntity<ParkingDto> getParkingById(@PathVariable Long id) {
-        return ResponseEntity.ok(parkingQueryService.getParkingById(id));
+    public ResponseEntity<ParkingDto> getParking() {
+        return ResponseEntity.ok(userParkingService.getUserParking());
     }
 }
