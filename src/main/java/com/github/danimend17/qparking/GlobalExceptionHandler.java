@@ -1,6 +1,7 @@
 package com.github.danimend17.qparking;
 
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
+import com.github.danimend17.qparking.parking.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleNotFoundException;
 import com.github.danimend17.qparking.role.RoleNameNotFoundException;
 import com.github.danimend17.qparking.role.RoleNotFoundException;
@@ -29,6 +30,13 @@ public class GlobalExceptionHandler {
         final ProblemDetail problemDetail = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Parking not founded");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(ParkingNotFoundForUserException.class)
+    public ProblemDetail parkingNotFoundForUserHandler(ParkingNotFoundForUserException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setTitle("Parking not found for user error");
         return problemDetail;
     }
 
