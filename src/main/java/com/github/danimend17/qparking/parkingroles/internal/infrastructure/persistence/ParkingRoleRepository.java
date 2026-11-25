@@ -27,4 +27,7 @@ public interface ParkingRoleRepository extends JpaRepository<ParkingRole, Long> 
 
 
     Optional<ParkingRole> findByParkingIdAndParkingRoleId(Long parkingId, Long parkingRoleId);
+
+    Optional<ParkingRole> findByParkingIdAndRoleName(Long parkingId, String roleName);
+
 }
