@@ -5,10 +5,12 @@ import com.github.danimend17.qparking.user.internal.web.UserMapper;
 import com.github.danimend17.qparking.user.internal.infrastructure.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 class UserServiceImpl implements UserService {
 
@@ -41,5 +43,11 @@ class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(email));
     }
 
+    @Override
+    public UserDto getUserByPhoneNumber(String phoneNumber) {
+        return userRepository.findByPhoneNumber(phoneNumber)
+                .map(mapper::toDto)
+                .orElseThrow(UserNotFoundException::new);
+    }
 
 }

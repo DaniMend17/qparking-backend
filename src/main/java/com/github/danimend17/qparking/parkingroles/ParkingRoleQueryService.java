@@ -14,4 +14,6 @@ public interface ParkingRoleQueryService {
 
     PageResult<String> getRoleNamesByParkingId(Long parkingId, int pageNumber);
 
+    ParkingRoleDto getParkingRoleByName(Long parkingId, String roleName);
+
 }

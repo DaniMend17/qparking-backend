@@ -67,4 +67,11 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
 
         return PageResult.fromPage(parkingRoleNamesPage);
     }
+
+    @Override
+    public ParkingRoleDto getParkingRoleByName(Long parkingId, String roleName) {
+        return parkingRoleRepository.findByParkingIdAndRoleName(parkingId, roleName)
+                .map(mapper::fromModelToDto)
+                .orElseThrow();
+    }
 }

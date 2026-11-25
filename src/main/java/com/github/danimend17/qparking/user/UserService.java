@@ -13,4 +13,5 @@ public interface UserService {
 
     UserDto getUserByEmail(String email);
 
+    UserDto getUserByPhoneNumber(String phoneNumber);
 }

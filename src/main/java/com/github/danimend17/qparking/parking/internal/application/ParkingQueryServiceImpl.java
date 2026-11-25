@@ -37,4 +37,11 @@ public class ParkingQueryServiceImpl implements ParkingQueryService {
                 .map(mapper::toDto)
                 .orElseThrow(() -> new ParkingNotFoundException(parkingId));
     }
+
+    @Override
+    public ParkingDto getParkingByName(String parkingName) {
+        return parkingRepository.findByParkingName(parkingName)
+                .map(mapper::toDto)
+                .orElseThrow(ParkingNotFoundException::new);
+    }
 }
