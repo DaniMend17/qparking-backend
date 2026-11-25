@@ -24,4 +24,6 @@ public interface ParkingRepository extends JpaRepository<Parking, Long> {
             """)
     Optional<Long> findUserParkingId(@Param("userId") Long userId);
 
+    Optional<Parking> findByParkingName(String parkingName);
+
 }
