@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 public interface ParkingRoleMapper {
 
     @Mapping(target = "parkingRoleId", ignore = true)
+    @Mapping(target = "parkingId", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     ParkingRole fromRequestToModel(ParkingRoleRequest request);

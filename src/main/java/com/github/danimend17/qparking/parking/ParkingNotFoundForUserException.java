@@ -1,4 +1,4 @@
-package com.github.danimend17.qparking.parking.internal.domain;
+package com.github.danimend17.qparking.parking;
 
 public class ParkingNotFoundForUserException extends RuntimeException {
     public ParkingNotFoundForUserException(Long userId) {

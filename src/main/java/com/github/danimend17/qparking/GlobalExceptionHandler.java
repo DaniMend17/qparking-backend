@@ -1,6 +1,7 @@
 package com.github.danimend17.qparking;
 
 import com.github.danimend17.qparking.parking.ParkingNotFoundException;
+import com.github.danimend17.qparking.parking.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parkingroles.ParkingRoleNotFoundException;
 import com.github.danimend17.qparking.role.RoleNameNotFoundException;
 import com.github.danimend17.qparking.role.RoleNotFoundException;
@@ -32,16 +33,23 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(ParkingNotFoundForUserException.class)
+    public ProblemDetail parkingNotFoundForUserHandler(ParkingNotFoundForUserException e) {
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setTitle("Parking not found for user error");
+        return problemDetail;
+    }
+
     @ExceptionHandler(RoleNotFoundException.class)
     public ProblemDetail roleNotFoundHandler(RoleNotFoundException e) {
-        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Role not found error");
         return problemDetail;
     }
 
     @ExceptionHandler(RoleNameNotFoundException.class)
     public ProblemDetail roleNameNotFoundHandler(RoleNameNotFoundException e) {
-        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Role name not found error");
         return problemDetail;
     }
@@ -60,7 +68,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ParkingRoleNotFoundException.class)
     public ProblemDetail parkingRoleNotFoundHandler(ParkingRoleNotFoundException e) {
-        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
+        final ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Parking role not found error");
         return problemDetail;
     }

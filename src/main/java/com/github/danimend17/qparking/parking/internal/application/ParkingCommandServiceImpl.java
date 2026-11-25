@@ -1,6 +1,7 @@
 package com.github.danimend17.qparking.parking.internal.application;
 
 import com.github.danimend17.qparking.parking.ParkingDto;
+import com.github.danimend17.qparking.parking.ParkingNotFoundForUserException;
 import com.github.danimend17.qparking.parking.internal.domain.*;
 import com.github.danimend17.qparking.parking.internal.infrastructure.persistence.ParkingRepository;
 import com.github.danimend17.qparking.parking.internal.web.mapper.ParkingMapper;
