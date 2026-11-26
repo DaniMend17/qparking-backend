@@ -1,6 +1,7 @@
 package com.github.danimend17.qparking.user;
 
 
+import java.util.Collection;
 import java.util.List;
 
 public interface UserService {
@@ -14,4 +15,7 @@ public interface UserService {
     UserDto getUserByEmail(String email);
 
     UserDto getUserByPhoneNumber(String phoneNumber);
+
+    List<UserSummaryDto> getAllSummariesWithIds(Collection<Long> userIds);
+
 }
