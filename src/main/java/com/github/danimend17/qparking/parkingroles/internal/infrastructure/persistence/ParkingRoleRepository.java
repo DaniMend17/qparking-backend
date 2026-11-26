@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface ParkingRoleRepository extends JpaRepository<ParkingRole, Long> {
@@ -29,5 +31,12 @@ public interface ParkingRoleRepository extends JpaRepository<ParkingRole, Long> 
     Optional<ParkingRole> findByParkingIdAndParkingRoleId(Long parkingId, Long parkingRoleId);
 
     Optional<ParkingRole> findByParkingIdAndRoleName(Long parkingId, String roleName);
+
+    @Query("""
+                SELECT pr.roleName
+                FROM ParkingRole pr
+                WHERE pr.parkingRoleId IN :parkingRoleIds
+            """)
+    List<String> findAllParkingRoleNamesWithIds(Collection<Long> parkingRoleIds);
 
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -48,6 +49,11 @@ class UserServiceImpl implements UserService {
         return userRepository.findByPhoneNumber(phoneNumber)
                 .map(mapper::toDto)
                 .orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public List<UserSummaryDto> getAllSummariesWithIds(Collection<Long> userIds) {
+        return userRepository.findSummariesByUserIds(userIds);
     }
 
 }
