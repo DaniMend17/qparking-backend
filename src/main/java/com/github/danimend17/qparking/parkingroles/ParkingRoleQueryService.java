@@ -2,6 +2,9 @@ package com.github.danimend17.qparking.parkingroles;
 
 import com.github.danimend17.qparking.shared.models.PageResult;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface ParkingRoleQueryService {
 
     PageResult<ParkingRoleDto> getAllParkingRoles(int pageNumber);
@@ -15,5 +18,7 @@ public interface ParkingRoleQueryService {
     PageResult<String> getRoleNamesByParkingId(Long parkingId, int pageNumber);
 
     ParkingRoleDto getParkingRoleByName(Long parkingId, String roleName);
+
+    List<String> getAllParkingRoleNamesWithIds(Collection<Long> parkingRoleIds);
 
 }

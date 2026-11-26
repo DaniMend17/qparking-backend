@@ -14,6 +14,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -73,5 +76,10 @@ public class ParkingRoleQueryServiceImpl implements ParkingRoleQueryService {
         return parkingRoleRepository.findByParkingIdAndRoleName(parkingId, roleName)
                 .map(mapper::fromModelToDto)
                 .orElseThrow();
+    }
+
+    @Override
+    public List<String> getAllParkingRoleNamesWithIds(Collection<Long> parkingRoleIds) {
+        return parkingRoleRepository.findAllParkingRoleNamesWithIds(parkingRoleIds);
     }
 }
